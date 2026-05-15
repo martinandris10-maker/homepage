@@ -41,7 +41,7 @@
 </head>
 <body class="bg-black text-white min-h-screen">
 
-  <!-- SUPER COOL CENTERED LOGO -->
+  <!-- Logo Header -->
   <header class="py-10 md:py-14 flex justify-center">
     <div class="flex items-center gap-4 md:gap-6 group">
       <div class="relative logo-glow">
@@ -52,7 +52,6 @@
           AI
         </div>
       </div>
-     
       <div>
         <span class="text-5xl md:text-6xl font-black tracking-[-3px] md:tracking-[-4px] text-white">Chat</span>
         <span class="text-5xl md:text-6xl font-black tracking-[-3px] md:tracking-[-4px] highlight">Saver</span>
@@ -80,7 +79,6 @@
   <section class="px-6 py-12 bg-zinc-950">
     <div class="max-w-md mx-auto">
       <h2 class="text-4xl font-bold text-center mb-8">Save everything.<br>Remember everything.</h2>
-     
       <div class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-8 border border-white/10">
         <h3 class="text-3xl font-bold mb-6">Free</h3>
         <ul class="space-y-4">
@@ -124,7 +122,6 @@
   <!-- How It Works -->
   <section class="px-6 py-16 bg-black">
     <h2 class="text-4xl font-bold text-center mb-12">How it Works</h2>
-   
     <div class="max-w-md mx-auto space-y-8">
       <div class="step-card bg-zinc-900 rounded-3xl p-8 border border-white/5">
         <div class="text-7xl font-bold text-blue-400 mb-4">1</div>
@@ -152,82 +149,18 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer with correct GitHub links -->
   <footer class="text-center py-12 text-sm border-t border-gray-800">
     <div class="flex justify-center gap-10 mb-6">
-      <a href="#" onclick="showModal('about-modal')" class="footer-link font-medium">About</a>
-      <a href="#" onclick="showModal('privacy-modal')" class="footer-link font-medium">Privacy</a>
-      <a href="#" onclick="showModal('terms-modal')" class="footer-link font-medium">Terms</a>
+      <a href="https://martinandris10-maker.github.io/homepage/about.html" 
+         target="_blank" class="footer-link font-medium">About</a>
+      <a href="https://martinandris10-maker.github.io/homepage/privacy.html" 
+         target="_blank" class="footer-link font-medium">Privacy</a>
+      <a href="https://martinandris10-maker.github.io/homepage/terms.html" 
+         target="_blank" class="footer-link font-medium">Terms</a>
     </div>
     <p class="text-gray-500">© 2026 ChatSaver.ai</p>
   </footer>
-
-  <!-- Modals -->
-  <div id="about-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8">
-      <h2 class="text-3xl font-bold mb-6">About ChatSaver.ai</h2>
-      <p class="text-gray-300 leading-relaxed">
-        ChatSaver.ai was built for heavy AI users who hate losing great conversations. 
-        Whether you're brainstorming, learning, or building something important — 
-        we make sure you never lose your best ideas again.
-      </p>
-      <button onclick="closeModal('about-modal')" 
-              class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">
-        Close
-      </button>
-    </div>
-  </div>
-
-  <div id="privacy-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[85vh] overflow-auto">
-      <h2 class="text-3xl font-bold mb-6">Privacy Policy</h2>
-      <p class="text-gray-300 leading-relaxed">
-        Your chats belong to you.<br><br>
-        Everything is saved <strong>locally on your device</strong> by default. 
-        We do not upload, store, or have access to your conversations unless you explicitly choose to use cloud features (Pro).
-      </p>
-      <p class="text-gray-400 text-sm mt-8">Last updated: May 2026</p>
-      <button onclick="closeModal('privacy-modal')" 
-              class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">
-        Close
-      </button>
-    </div>
-  </div>
-
-  <div id="terms-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[85vh] overflow-auto">
-      <h2 class="text-3xl font-bold mb-6">Terms of Service</h2>
-      <p class="text-gray-300 leading-relaxed">
-        Welcome to ChatSaver.ai.<br><br>
-        By using our service, you agree to use it responsibly. 
-        Pro subscriptions are billed monthly and can be canceled at any time from your account settings.
-      </p>
-      <button onclick="closeModal('terms-modal')" 
-              class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">
-        Close
-      </button>
-    </div>
-  </div>
-
-  <!-- Modal Script -->
-  <script>
-    function showModal(modalId) {
-      document.getElementById(modalId).classList.remove('hidden');
-    }
-
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.add('hidden');
-    }
-
-    // Close modal when clicking outside the content
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-          modal.classList.add('hidden');
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
