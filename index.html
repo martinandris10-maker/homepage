@@ -37,9 +37,17 @@
       color: #dbeafe;
       transform: translateY(-2px);
     }
+    .mobile-prompt {
+      animation: slideUp 0.4s ease-out forwards;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen">
+
   <!-- SUPER COOL CENTERED LOGO -->
   <header class="py-10 md:py-14 flex justify-center">
     <div class="flex items-center gap-4 md:gap-6 group">
@@ -47,15 +55,15 @@
         <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/70 ring-4 ring-white/10 transition-all group-hover:scale-110">
           <i class="fa-solid fa-floppy-disk text-3xl md:text-4xl text-white"></i>
         </div>
-        <div class="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 bg-emerald-400 text-black text-[10px] font-bold px-2 py-0.5 rounded-xl shadow-lg ring-2 ring-black">
+        <div class="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 bg-emerald-400 text-black text- font-bold px-2 py-0.5 rounded-xl shadow-lg ring-2 ring-black">
           AI
         </div>
       </div>
     
       <div>
-        <span class="text-5xl md:text-6xl font-black tracking-[-3px] md:tracking-[-4px] text-white">Chat</span>
-        <span class="text-5xl md:text-6xl font-black tracking-[-3px] md:tracking-[-4px] highlight">Saver</span>
-        <span class="text-5xl md:text-6xl font-black tracking-[-3px] md:tracking-[-4px] text-white">.ai</span>
+        <span class="text-5xl md:text-6xl font-black tracking- md:tracking- text-white">Chat</span>
+        <span class="text-5xl md:text-6xl font-black tracking- md:tracking- highlight">Saver</span>
+        <span class="text-5xl md:text-6xl font-black tracking- md:tracking- text-white">.ai</span>
       </div>
     </div>
   </header>
@@ -65,11 +73,11 @@
     <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
       Never lose your<br>best ideas again.
     </h1>
-    <p class="text-base md:text-[17px] text-gray-300 max-w-[340px] mx-auto mb-12">
+    <p class="text-base md:text- text-gray-300 max-w- mx-auto mb-12">
       That brilliant conversation you just had with ChatGPT, Claude, Grok or Gemini...<br>
       <span class="text-amber-400">is already disappearing.</span>
     </p>
-    <button onclick="alert('Starting ChatSaver...')"
+    <button onclick="showMobilePrompt()"
             class="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-black font-bold text-lg md:text-xl px-8 md:px-10 py-5 md:py-6 rounded-3xl w-full max-w-xs mx-auto block transition-all shadow-xl shadow-emerald-500/50">
       Never Lose My Chats Again
     </button>
@@ -89,7 +97,7 @@
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Lightning-fast Search</li>
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> 100% Private — Everything stays on your device</li>
         </ul>
-        <button class="mt-10 w-full bg-white text-black font-semibold py-4 rounded-2xl text-lg hover:bg-gray-200 transition">
+        <button onclick="showMobilePrompt()" class="mt-10 w-full bg-white text-black font-semibold py-4 rounded-2xl text-lg hover:bg-gray-200 transition">
           Get Started Free
         </button>
       </div>
@@ -114,7 +122,7 @@
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> Smart tagging + Cloud search</li>
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> Advanced filters & Export</li>
       </ul>
-      <button class="mt-10 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-105 transition">
+      <button onclick="showMobilePrompt()" class="mt-10 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-105 transition">
         Go Pro Now
       </button>
     </div>
@@ -144,12 +152,12 @@
 
     <div class="max-w-md mx-auto text-center mt-16">
       <h2 class="text-4xl font-bold mb-6">Ready to stop losing<br>your best conversations?</h2>
-      <button onclick="alert('Starting ChatSaver...')"
+      <button onclick="showMobilePrompt()"
               class="bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold text-xl px-12 py-6 rounded-3xl w-full max-w-xs mx-auto block shadow-xl shadow-emerald-500/50 hover:scale-105 transition">
         Start Saving My Chats Now
       </button>
       
-      <p class="text-amber-400 text-[15px] mt-8 font-medium">
+      <p class="text-amber-400 text- mt-8 font-medium">
         100% Private — Everything stays on your device. No Cloud. No tracking. No data collection.
       </p>
     </div>
@@ -165,77 +173,8 @@
     <p class="text-gray-500">© 2026 ChatSaver.ai</p>
   </footer>
 
-  <!-- Modals -->
-  <div id="about-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8">
-      <h2 class="text-3xl font-bold mb-6">About ChatSaver.ai</h2>
-      <p class="text-gray-300 leading-relaxed">
-        ChatSaver.ai was built for heavy AI users who hate losing great conversations.
-        Whether you're brainstorming, learning, or building something important —
-        we make sure you never lose your best ideas again.
-      </p>
-      <button onclick="closeModal('about-modal')"
-              class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">
-        Close
-      </button>
-    </div>
-  </div>
-
-  <div id="privacy-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[85vh] overflow-auto">
-      <h2 class="text-3xl font-bold mb-6">Privacy Policy</h2>
-      <p class="text-gray-300 leading-relaxed">
-        Your chats belong to you.<br><br>
-        Everything is saved <strong>locally on your device</strong> by default.
-        We do not upload, store, or have access to your conversations unless you explicitly choose to use cloud features (Pro).
-      </p>
-      <p class="text-gray-400 text-sm mt-8">Last updated: May 2026</p>
-      <button onclick="closeModal('privacy-modal')"
-              class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">
-        Close
-      </button>
-    </div>
-  </div>
-
-  <div id="terms-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[85vh] overflow-auto">
-      <h2 class="text-3xl font-bold mb-6">Terms of Service</h2>
-      <p class="text-gray-300 leading-relaxed">
-        Welcome to ChatSaver.ai.<br><br>
-        By using our service, you agree to use it responsibly.
-        Pro subscriptions are billed monthly and can be canceled at any time from your account settings.
-      </p>
-      <button onclick="closeModal('terms-modal')"
-              class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">
-        Close
-      </button>
-    </div>
-  </div>
-
-  <!-- Modal Script -->
-  <script>
-    function showModal(modalId) {
-      document.getElementById(modalId).classList.remove('hidden');
-    }
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.add('hidden');
-    }
-
-    document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-          modal.classList.add('hidden');
-        }
-      });
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === "Escape") {
-        document.querySelectorAll('.modal').forEach(modal => {
-          modal.classList.add('hidden');
-        });
-      }
-    });
-  </script>
-</body>
-</html>
+  <!-- Mobile Prompt -->
+  <div id="mobilePrompt" class="hidden fixed inset-0 bg-black/90 flex items-end justify-center z-[100] pb-8">
+    <div class="mobile-prompt bg-zinc-900 rounded-3xl w-full max-w- mx-4 p-8 text-center">
+      <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-400 to-purple-600 rounded-2xl flex items-center justify-center">
+        <i class="fa-solid fa-floppy-disk text
