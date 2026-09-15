@@ -7,99 +7,149 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .hero-bg { background: linear-gradient(180deg, #1a0033 0%, #0a0a1f 70%); }
+    .logo-glow { filter: drop-shadow(0 0 25px rgb(96 165 250 / 0.6)); }
+    .highlight { background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+    .step-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    .step-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3); }
+    .footer-link { color: #93c5fd; transition: all 0.3s; }
+    .footer-link:hover { color: #dbeafe; transform: translateY(-2px); }
+    .stat-num { background: linear-gradient(90deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] .faq-icon { transform: rotate(45deg); }
+    .modal.hidden { display: none; }
+    html { scroll-behavior: smooth; }
+    /* Circled "Sync" badge on the Pro card */
+    .sync-badge {
+      border: 2px solid #34d399;
+      border-radius: 9999px;
+      padding: 0.35rem 1rem;
+      color: #34d399;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      box-shadow: 0 0 18px rgb(52 211 153 / 0.35);
+      white-space: nowrap;
     }
-    .hero-bg {
-      background: linear-gradient(180deg, #1a0033 0%, #0a0a1f 70%);
+    /* Shield + lock medallion */
+    .lock-badge {
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 9999px;
+      padding: 2px;
+      background: conic-gradient(from 210deg, #34d399, #60a5fa, #c084fc, #34d399);
+      box-shadow: 0 0 30px rgb(52 211 153 / 0.35);
     }
-    .logo-glow {
-      filter: drop-shadow(0 0 25px rgb(96 165 250 / 0.6));
+    .lock-badge-ring {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 9999px;
+      background: radial-gradient(circle at 30% 25%, #1b2a2a 0%, #0c0c12 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .highlight {
-      background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
+    .lock-badge-shield {
+      font-size: 2.25rem;
+      color: #34d399;
+      opacity: 0.28;
     }
-    .step-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .step-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
-    }
-    .footer-link {
-      color: #93c5fd;
-      transition: all 0.3s;
-    }
-    .footer-link:hover {
-      color: #dbeafe;
-      transform: translateY(-2px);
-    }
-    .mobile-prompt {
-      animation: slideUp 0.4s ease-out forwards;
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .lock-badge-lock {
+      position: absolute;
+      font-size: 1.15rem;
+      color: #ecfdf5;
+      transform: translateY(1px);
+      filter: drop-shadow(0 0 8px rgb(52 211 153 / 0.9));
     }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen">
 
-  <!-- SUPER COOL CENTERED LOGO -->
+  <!-- LOGO -->
   <header class="py-10 md:py-14 flex justify-center">
     <div class="flex items-center gap-4 md:gap-6 group">
       <div class="relative logo-glow">
         <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/70 ring-4 ring-white/10 transition-all group-hover:scale-110">
           <i class="fa-solid fa-floppy-disk text-3xl md:text-4xl text-white"></i>
         </div>
-        <div class="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 bg-emerald-400 text-black text- font-bold px-2 py-0.5 rounded-xl shadow-lg ring-2 ring-black">
-          AI
-        </div>
+        <div class="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 bg-emerald-400 text-black text-xs font-bold px-2 py-0.5 rounded-xl shadow-lg ring-2 ring-black">AI</div>
       </div>
-    
       <div>
-        <span class="text-5xl md:text-6xl font-black tracking- md:tracking- text-white">Chat</span>
-        <span class="text-5xl md:text-6xl font-black tracking- md:tracking- highlight">Saver</span>
-        <span class="text-5xl md:text-6xl font-black tracking- md:tracking- text-white">.ai</span>
+        <span class="text-5xl md:text-6xl font-black tracking-tight text-white">Chat</span>
+        <span class="text-5xl md:text-6xl font-black tracking-tight highlight">Saver</span>
+        <span class="text-5xl md:text-6xl font-black tracking-tight text-white">.ai</span>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero-bg px-6 pt-6 pb-20 text-center">
     <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
-      Never lose your<br>best ideas again.
+      Your AI chats.<br>Your library. Your rules.
     </h1>
-    <p class="text-base md:text- text-gray-300 max-w- mx-auto mb-12">
-      That brilliant conversation you just had with ChatGPT, Claude, Grok or Gemini...<br>
-      <span class="text-amber-400">is already disappearing.</span>
+    <p class="text-base md:text-lg text-gray-300 max-w-md mx-auto mb-12">
+      ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity and more —<br>
+      <span class="text-amber-400">own every conversation you have with them.</span>
     </p>
-    <button onclick="showMobilePrompt()"
+    <button onclick="alert('Starting ChatSaver...')"
             class="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-black font-bold text-lg md:text-xl px-8 md:px-10 py-5 md:py-6 rounded-3xl w-full max-w-xs mx-auto block transition-all shadow-xl shadow-emerald-500/50">
-      Never Lose My Chats Again
+      Start Saving My Chats Now
     </button>
   </section>
 
-  <!-- Free Plan -->
+  <!-- FREE PLAN -->
   <section class="px-6 py-12 bg-zinc-950">
     <div class="max-w-md mx-auto">
       <h2 class="text-4xl font-bold text-center mb-8">Save everything.<br>Remember everything.</h2>
-    
       <div class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-8 border border-white/10">
-        <h3 class="text-3xl font-bold mb-6">Free</h3>
+        <div class="mb-6">
+          <h3 class="text-3xl font-bold">Free</h3>
+          <p class="text-4xl font-bold mt-1">$0</p>
+          <p class="mt-2 text-sm font-semibold tracking-wide text-emerald-400">100% Private &nbsp;·&nbsp; 100% Local</p>
+        </div>
         <ul class="space-y-4">
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Get started instantly</li>
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Save up to 25 conversations</li>
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Smart Auto-Tagging</li>
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Lightning-fast Search</li>
-          <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> 100% Private — Everything stays on your device</li>
+          <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Everything stays on your device — no cloud, no tracking</li>
         </ul>
-        <button onclick="showMobilePrompt()" class="mt-10 w-full bg-white text-black font-semibold py-4 rounded-2xl text-lg hover:bg-gray-200 transition">
-          Get Started Free
-        </button>
+        <button class="mt-10 w-full bg-white text-black font-semibold py-4 rounded-2xl text-lg hover:bg-gray-200 transition">Get Started Free</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PITCH -->
+  <section class="px-6 py-14 bg-gradient-to-b from-zinc-950 to-black text-center">
+    <div class="max-w-md mx-auto">
+      <span class="inline-block text-emerald-400 font-semibold tracking-widest text-sm mb-4">WHY GO PRO</span>
+      <h2 class="text-3xl md:text-4xl font-bold mb-10 leading-tight">Your master memory profile</h2>
+      <div class="space-y-8 text-left">
+        <div class="flex gap-4">
+          <span class="text-2xl font-bold text-blue-400 shrink-0">1</span>
+          <div>
+            <h3 class="font-semibold text-lg mb-1">One profile, every AI, all your history</h3>
+            <p class="text-gray-400">Every chat across every AI you use, aggregated into one profile that's yours.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-2xl font-bold text-blue-400 shrink-0">2</span>
+          <div>
+            <h3 class="font-semibold text-lg mb-1">Build it once, use it forever</h3>
+            <p class="text-gray-400">New AI tools keep launching — <span class="text-gray-300">including future robots</span> — and your profile carries over so they know you from message one.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="text-2xl font-bold text-blue-400 shrink-0">3</span>
+          <div>
+            <h3 class="font-semibold text-lg mb-1">The more you use AI, the more you own</h3>
+            <p class="text-gray-400">Every conversation adds lasting value to a profile that's fully yours to control.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -107,36 +157,49 @@
   <!-- PRO -->
   <section class="px-6 py-12">
     <div class="max-w-md mx-auto bg-zinc-900 border border-blue-500/30 rounded-3xl p-8">
-      <div class="mb-6">
-        <span class="uppercase text-emerald-400 font-medium tracking-widest">PRO</span>
-        <h3 class="text-4xl font-bold">$1.99 <span class="text-base font-normal text-gray-400">/month</span></h3>
+      <div class="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <span class="uppercase text-emerald-400 font-medium tracking-widest">PRO</span>
+          <h3 class="text-4xl font-bold">$1.99 <span class="text-base font-normal text-gray-400">/month</span></h3>
+        </div>
+        <!-- circled Sync badge, inside the card -->
+        <span class="sync-badge shrink-0 mt-1"><i class="fa-solid fa-rotate mr-1.5"></i>Sync</span>
       </div>
       <ul class="space-y-4">
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span>
-          <span>
-            <span class="highlight text-xl">Master Memory Profile</span><br>
-            <span class="text-gray-400 text-base">- AI remembers you faster</span>
-          </span>
-        </li>
+        <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="highlight text-xl">Master Memory Profile</span><br><span class="text-gray-400 text-base">- AI remembers you faster</span></span></li>
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> Unlimited conversations</li>
+        <li class="flex gap-3"><span class="text-emerald-400">✔</span> End-to-end encrypted cloud sync — move between devices</li>
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> Smart tagging + Cloud search</li>
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span> Advanced filters & Export</li>
+        <li class="flex gap-3"><span class="text-emerald-400">✔</span> Advanced filters &amp; Export</li>
       </ul>
-      <button onclick="showMobilePrompt()" class="mt-10 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-105 transition">
-        Go Pro Now
-      </button>
+      <button class="mt-10 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-105 transition">Go Pro Now</button>
+    </div>
+
+    <!-- PRIVACY BOX -->
+    <div class="max-w-md mx-auto mt-8 bg-zinc-900/60 border border-emerald-500/25 rounded-3xl p-8">
+      <div class="flex items-center gap-5 mb-5">
+        <div class="lock-badge shrink-0">
+          <div class="lock-badge-ring">
+            <i class="fa-solid fa-shield-halved lock-badge-shield"></i>
+            <i class="fa-solid fa-lock lock-badge-lock"></i>
+          </div>
+        </div>
+        <h3 class="text-2xl font-bold leading-tight">Private by design,<br>in both tiers</h3>
+      </div>
+      <p class="text-gray-400 leading-relaxed">
+        Free never touches the cloud — it stays on your device, forever. Pro's sync is end-to-end encrypted, so even we can't read your conversations.
+      </p>
     </div>
   </section>
 
-  <!-- How It Works -->
+  <!-- HOW IT WORKS -->
   <section class="px-6 py-16 bg-black">
     <h2 class="text-4xl font-bold text-center mb-12">How it Works</h2>
-  
     <div class="max-w-md mx-auto space-y-8">
       <div class="step-card bg-zinc-900 rounded-3xl p-8 border border-white/5">
         <div class="text-7xl font-bold text-blue-400 mb-4">1</div>
         <h3 class="text-2xl font-semibold">Open any AI app</h3>
-        <p class="text-gray-400">ChatGPT, Claude, Grok, Gemini & more</p>
+        <p class="text-gray-400">ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity &amp; more</p>
       </div>
       <div class="step-card bg-zinc-900 rounded-3xl p-8 border border-white/5">
         <div class="text-7xl font-bold text-blue-400 mb-4">2</div>
@@ -151,30 +214,200 @@
     </div>
 
     <div class="max-w-md mx-auto text-center mt-16">
-      <h2 class="text-4xl font-bold mb-6">Ready to stop losing<br>your best conversations?</h2>
-      <button onclick="showMobilePrompt()"
+      <h2 class="text-4xl font-bold mb-6">Ready to start saving<br>your best conversations?</h2>
+      <button onclick="alert('Starting ChatSaver...')"
               class="bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold text-xl px-12 py-6 rounded-3xl w-full max-w-xs mx-auto block shadow-xl shadow-emerald-500/50 hover:scale-105 transition">
         Start Saving My Chats Now
       </button>
-      
-      <p class="text-amber-400 text- mt-8 font-medium">
-        100% Private — Everything stays on your device. No Cloud. No tracking. No data collection.
-      </p>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FAQ -->
+  <section id="faq-section" class="px-6 py-16 bg-zinc-950 scroll-mt-10">
+    <h2 class="text-4xl font-bold text-center mb-12">FAQ</h2>
+    <div class="max-w-2xl mx-auto space-y-4">
+      <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+        <summary class="flex justify-between items-center text-lg font-semibold">
+          Which AI apps does ChatSaver support?
+          <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+        </summary>
+        <p class="text-gray-400 mt-4">ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity, and any other AI chat app you use. If it has a conversation, we can save it.</p>
+      </details>
+      <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+        <summary class="flex justify-between items-center text-lg font-semibold">
+          Is my data really private?
+          <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+        </summary>
+        <p class="text-gray-400 mt-4">Yes. On Free, everything is saved locally on your device and never touches the cloud. On Pro, cloud sync is end-to-end encrypted, so your conversations stay unreadable to anyone but you.</p>
+      </details>
+      <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+        <summary class="flex justify-between items-center text-lg font-semibold">
+          Can I cancel Pro anytime?
+          <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+        </summary>
+        <p class="text-gray-400 mt-4">Absolutely. Pro is billed monthly and can be canceled anytime from your account settings. No contracts, no hidden fees.</p>
+      </details>
+      <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+        <summary class="flex justify-between items-center text-lg font-semibold">
+          What happens to my saved chats if I switch phones?
+          <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+        </summary>
+        <p class="text-gray-400 mt-4">With Pro, your library syncs to the cloud so you can pick up right where you left off on any device. Free users can export their chats as a backup.</p>
+      </details>
+      <div id="faq-more" class="hidden space-y-4">
+        <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <summary class="flex justify-between items-center text-lg font-semibold">
+            Can I lock individual chats?
+            <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 mt-4">Yes. You can set a PIN on any sensitive chat to keep it protected, separate from your overall app password.</p>
+        </details>
+        <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <summary class="flex justify-between items-center text-lg font-semibold">
+            Does ChatSaver work offline?
+            <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 mt-4">Yes. Since chats are stored locally by default, you can view and search your saved conversations even without an internet connection.</p>
+        </details>
+        <details class="bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <summary class="flex justify-between items-center text-lg font-semibold">
+            What happens if I downgrade from Pro?
+            <span class="faq-icon text-2xl text-emerald-400 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 mt-4">Your chats stay safe. You'll keep access to your most recent 25 conversations locally, and anything beyond that remains in your export or cloud backup.</p>
+        </details>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <button id="faq-more-btn" onclick="toggleMore('faq')" class="text-emerald-400 font-semibold hover:text-emerald-300 transition">Show more +</button>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials-section" class="px-6 py-16 bg-black scroll-mt-10">
+    <h2 class="text-4xl font-bold text-center mb-12">Loved by AI power users</h2>
+    <div class="max-w-md mx-auto space-y-6">
+      <div class="bg-zinc-900 rounded-3xl p-8 border border-white/5">
+        <div class="flex gap-1 text-amber-400 mb-4">★★★★★</div>
+        <p class="text-gray-300 text-lg leading-relaxed">"I used to lose brilliant prompts every week. Now my entire AI history is searchable in seconds."</p>
+        <p class="text-gray-500 mt-4">— Maya R., Product Designer</p>
+      </div>
+      <div class="bg-zinc-900 rounded-3xl p-8 border border-white/5">
+        <div class="flex gap-1 text-amber-400 mb-4">★★★★★</div>
+        <p class="text-gray-300 text-lg leading-relaxed">"The auto-tagging is unreal. I found a conversation from three months ago in under a second."</p>
+        <p class="text-gray-500 mt-4">— Devon K., Software Engineer</p>
+      </div>
+      <div class="bg-zinc-900 rounded-3xl p-8 border border-white/5">
+        <div class="flex gap-1 text-amber-400 mb-4">★★★★★</div>
+        <p class="text-gray-300 text-lg leading-relaxed">"Finally, my chats belong to me — not trapped inside one app's memory."</p>
+        <p class="text-gray-500 mt-4">— Priya S., Researcher</p>
+      </div>
+      <div id="testimonials-more" class="hidden space-y-6">
+        <div class="bg-zinc-900 rounded-3xl p-8 border border-white/5">
+          <div class="flex gap-1 text-amber-400 mb-4">★★★★★</div>
+          <p class="text-gray-300 text-lg leading-relaxed">"I switch between three different AI apps daily. ChatSaver is the only place all of it actually lives."</p>
+          <p class="text-gray-500 mt-4">— Jordan L., Founder</p>
+        </div>
+        <div class="bg-zinc-900 rounded-3xl p-8 border border-white/5">
+          <div class="flex gap-1 text-amber-400 mb-4">★★★★★</div>
+          <p class="text-gray-300 text-lg leading-relaxed">"The PIN lock on individual chats sold me. I keep client work saved and actually private."</p>
+          <p class="text-gray-500 mt-4">— Ana T., Consultant</p>
+        </div>
+        <div class="bg-zinc-900 rounded-3xl p-8 border border-white/5">
+          <div class="flex gap-1 text-amber-400 mb-4">★★★★★</div>
+          <p class="text-gray-300 text-lg leading-relaxed">"Worth going Pro just for the cloud sync. I move between my laptop and phone constantly."</p>
+          <p class="text-gray-500 mt-4">— Marcus B., Student</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      <button id="testimonials-more-btn" onclick="toggleMore('testimonials')" class="text-emerald-400 font-semibold hover:text-emerald-300 transition">Show more +</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="text-center py-12 text-sm border-t border-gray-800">
-    <div class="flex justify-center gap-10 mb-6">
-      <a href="#" onclick="showModal('about-modal')" class="footer-link font-medium">About</a>
-      <a href="#" onclick="showModal('privacy-modal')" class="footer-link font-medium">Privacy</a>
-      <a href="#" onclick="showModal('terms-modal')" class="footer-link font-medium">Terms</a>
+    <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-6">
+      <a href="#" onclick="showModal('about-modal'); return false;" class="footer-link font-medium">About</a>
+      <a href="#" onclick="showModal('privacy-modal'); return false;" class="footer-link font-medium">Privacy</a>
+      <a href="#" onclick="showModal('terms-modal'); return false;" class="footer-link font-medium">Terms</a>
+      <a href="#faq-section" class="footer-link font-medium">FAQ</a>
+      <a href="#testimonials-section" class="footer-link font-medium">Testimonials</a>
+    </div>
+    <div class="mb-6">
+      <a href="#" onclick="showModal('help-modal'); return false;" class="footer-link font-medium">
+        <i class="fa-solid fa-headset mr-2"></i>Tech Support / Help Center
+      </a>
     </div>
     <p class="text-gray-500">© 2026 ChatSaver.ai</p>
   </footer>
 
-  <!-- Mobile Prompt -->
-  <div id="mobilePrompt" class="hidden fixed inset-0 bg-black/90 flex items-end justify-center z-[100] pb-8">
-    <div class="mobile-prompt bg-zinc-900 rounded-3xl w-full max-w- mx-4 p-8 text-center">
-      <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-400 to-purple-600 rounded-2xl flex items-center justify-center">
-        <i class="fa-solid fa-floppy-disk text
+  <!-- MODALS -->
+  <div id="about-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8">
+      <h2 class="text-3xl font-bold mb-6">About ChatSaver.ai</h2>
+      <p class="text-gray-300 leading-relaxed">ChatSaver.ai was built for heavy AI users who want to own their conversations. Whether you're brainstorming, learning, or building something important — we make sure your best ideas stay yours.</p>
+      <button onclick="closeModal('about-modal')" class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">Close</button>
+    </div>
+  </div>
+
+  <div id="privacy-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[80vh] overflow-auto">
+      <h2 class="text-3xl font-bold mb-6">Privacy Policy</h2>
+      <p class="text-gray-300 leading-relaxed">Your chats belong to you.<br><br>On the Free tier, everything is saved <strong>locally on your device</strong>. Nothing is uploaded, and there is no tracking.<br><br>On Pro, cloud sync is <strong>end-to-end encrypted</strong>. Your conversations are encrypted on your device before they leave it, so we cannot read them.</p>
+      <p class="text-gray-400 text-sm mt-8">Last updated: May 2026</p>
+      <button onclick="closeModal('privacy-modal')" class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">Close</button>
+    </div>
+  </div>
+
+  <div id="terms-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[80vh] overflow-auto">
+      <h2 class="text-3xl font-bold mb-6">Terms of Service</h2>
+      <p class="text-gray-300 leading-relaxed">By using ChatSaver.ai, you agree to use the app for personal, lawful purposes. Free accounts may save up to 25 conversations; Pro accounts unlock unlimited saving and end-to-end encrypted cloud sync.<br><br>We are not responsible for content generated by third-party AI platforms — ChatSaver.ai simply helps you save and organize your own conversations.</p>
+      <p class="text-gray-400 text-sm mt-8">Last updated: May 2026</p>
+      <button onclick="closeModal('terms-modal')" class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">Close</button>
+    </div>
+  </div>
+
+  <div id="help-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+    <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[80vh] overflow-auto">
+      <h2 class="text-3xl font-bold mb-6">Tech Support / Help Center</h2>
+      <p class="text-gray-300 leading-relaxed">Need a hand? Start here:</p>
+      <ul class="mt-6 space-y-4">
+        <li class="flex items-start gap-3 text-gray-300"><i class="fa-solid fa-circle-question text-emerald-400 mt-1"></i> Browse the FAQ above for setup, saving, and sync questions.</li>
+        <li class="flex items-start gap-3 text-gray-300"><i class="fa-solid fa-envelope text-emerald-400 mt-1"></i> Email us at <span class="text-white">support@chatsaver.ai</span> and we'll get back to you within 24 hours.</li>
+        <li class="flex items-start gap-3 text-gray-300"><i class="fa-solid fa-bug text-emerald-400 mt-1"></i> Found a bug? Let us know what happened and which AI app you were using.</li>
+      </ul>
+      <button onclick="closeModal('help-modal')" class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleMore(section) {
+      var more = document.getElementById(section + '-more');
+      var btn = document.getElementById(section + '-more-btn');
+      var isHidden = more.classList.contains('hidden');
+      more.classList.toggle('hidden');
+      btn.textContent = isHidden ? 'Show less −' : 'Show more +';
+    }
+    function showModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Close modal when clicking the dark backdrop
+    document.querySelectorAll('.modal').forEach(function (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
