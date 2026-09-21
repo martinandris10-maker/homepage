@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChatSaver.AI</title>
+
+  <!-- FAVICON: floppy disk + AI badge (matches the logo) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='.5' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 12h30l8 8v30a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z' fill='white'/%3E%3Crect x='19' y='12' width='20' height='13' rx='1.5' fill='%236366f1'/%3E%3Crect x='32' y='14.5' width='4' height='8' rx='1' fill='white'/%3E%3Crect x='19' y='32' width='26' height='18' rx='2' fill='%23c7d2fe'/%3E%3Ccircle cx='51' cy='13' r='11' fill='%2334d399' stroke='black' stroke-width='2'/%3E%3Ctext x='51' y='17.5' font-family='Arial,sans-serif' font-weight='800' font-size='12' text-anchor='middle' fill='black'%3EAI%3C/text%3E%3C/svg%3E">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
@@ -34,6 +38,23 @@
       box-shadow: 0 0 18px rgb(52 211 153 / 0.35);
       white-space: nowrap;
     }
+    /* Free tier badges: shield (Private) + memory chip (Local) */
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1.5px solid rgb(52 211 153 / 0.6);
+      background: rgb(52 211 153 / 0.08);
+      color: #34d399;
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      box-shadow: 0 0 14px rgb(52 211 153 / 0.2);
+    }
+    .tier-badge i { font-size: 0.95rem; }
     /* Shield + lock medallion */
     .lock-badge {
       width: 4.5rem;
@@ -88,9 +109,10 @@
 
   <!-- HERO -->
   <section class="hero-bg px-6 pt-6 pb-20 text-center">
-    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
       Your AI chats.<br>Your library. Your rules.
     </h1>
+    <p class="text-2xl md:text-3xl font-bold text-amber-400 mb-6">Knowledge is a Mixture.</p>
     <p class="text-base md:text-lg text-gray-300 max-w-md mx-auto mb-12">
       ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity and more —<br>
       <span class="text-amber-400">own every conversation you have with them.</span>
@@ -109,7 +131,10 @@
         <div class="mb-6">
           <h3 class="text-3xl font-bold">Free</h3>
           <p class="text-4xl font-bold mt-1">$0</p>
-          <p class="mt-2 text-sm font-semibold tracking-wide text-emerald-400">100% Private &nbsp;·&nbsp; 100% Local</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="tier-badge"><i class="fa-solid fa-shield-halved"></i>100% Private</span>
+            <span class="tier-badge"><i class="fa-solid fa-memory"></i>100% Local</span>
+          </div>
         </div>
         <ul class="space-y-4">
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Get started instantly</li>
@@ -127,7 +152,7 @@
   <section class="px-6 py-14 bg-gradient-to-b from-zinc-950 to-black text-center">
     <div class="max-w-md mx-auto">
       <span class="inline-block text-emerald-400 font-semibold tracking-widest text-sm mb-4">WHY GO PRO</span>
-      <h2 class="text-3xl md:text-4xl font-bold mb-10 leading-tight">Your master memory profile</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-10 leading-tight">Your Master Memory Profile</h2>
       <div class="space-y-8 text-left">
         <div class="flex gap-4">
           <span class="text-2xl font-bold text-blue-400 shrink-0">1</span>
@@ -150,6 +175,13 @@
             <p class="text-gray-400">Every conversation adds lasting value to a profile that's fully yours to control.</p>
           </div>
         </div>
+        <div class="flex gap-4">
+          <span class="text-2xl font-bold text-blue-400 shrink-0">4</span>
+          <div>
+            <h3 class="font-semibold text-lg mb-1">Never introduce yourself twice</h3>
+            <p class="text-gray-400">Every new AI already knows you from message one.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -167,6 +199,7 @@
       </div>
       <ul class="space-y-4">
         <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="highlight text-xl">Master Memory Profile</span><br><span class="text-gray-400 text-base">- AI remembers you faster</span></span></li>
+        <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="font-semibold">Never introduce yourself twice</span><br><span class="text-gray-400 text-base">- Every new AI already knows you from message one</span></span></li>
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> Unlimited conversations</li>
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> End-to-end encrypted cloud sync — move between devices</li>
         <li class="flex gap-3"><span class="text-emerald-400">✔</span> Smart tagging + Cloud search</li>
@@ -339,7 +372,8 @@
         <i class="fa-solid fa-headset mr-2"></i>Tech Support / Help Center
       </a>
     </div>
-    <p class="text-gray-500">© 2026 ChatSaver.ai</p>
+    <!-- Year updates automatically; 2026 shown as a fallback if JS is off -->
+    <p class="text-gray-500 text-center px-6">Copyright © <span id="current-year">2026</span> ChatSaver.ai &nbsp;All Rights Reserved.</p>
   </footer>
 
   <!-- MODALS -->
@@ -383,6 +417,9 @@
   </div>
 
   <script>
+    // Auto-update the copyright year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
     function toggleMore(section) {
       var more = document.getElementById(section + '-more');
       var btn = document.getElementById(section + '-more-btn');
