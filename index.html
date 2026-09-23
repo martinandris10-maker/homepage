@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatSaver.AI</title>
+  <title>ChatSaver.AI — Save, search & own every AI chat</title>
+  <meta name="description" content="Save every ChatGPT, Claude, Grok, Gemini, Kimi and Perplexity conversation in one private library. Free and 100% local, or go Pro for a Master Memory Profile and encrypted sync.">
+  <meta name="theme-color" content="#0a0a1f">
+  <meta property="og:title" content="ChatSaver.AI — Your AI chats. Your library. Your rules.">
+  <meta property="og:description" content="Own every conversation you have with every AI. Private, searchable, and yours.">
+  <meta property="og:type" content="website">
 
   <!-- FAVICON: floppy disk + AI badge (matches the logo) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='.5' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 12h30l8 8v30a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z' fill='white'/%3E%3Crect x='19' y='12' width='20' height='13' rx='1.5' fill='%236366f1'/%3E%3Crect x='32' y='14.5' width='4' height='8' rx='1' fill='white'/%3E%3Crect x='19' y='32' width='26' height='18' rx='2' fill='%23c7d2fe'/%3E%3Ccircle cx='51' cy='13' r='11' fill='%2334d399' stroke='black' stroke-width='2'/%3E%3Ctext x='51' y='17.5' font-family='Arial,sans-serif' font-weight='800' font-size='12' text-anchor='middle' fill='black'%3EAI%3C/text%3E%3C/svg%3E">
@@ -12,6 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    html { scroll-behavior: smooth; }
     .hero-bg { background: linear-gradient(180deg, #1a0033 0%, #0a0a1f 70%); }
     .logo-glow { filter: drop-shadow(0 0 25px rgb(96 165 250 / 0.6)); }
     .highlight { background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
@@ -19,73 +25,67 @@
     .step-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3); }
     .footer-link { color: #93c5fd; transition: all 0.3s; }
     .footer-link:hover { color: #dbeafe; transform: translateY(-2px); }
-    .stat-num { background: linear-gradient(90deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
     details summary { list-style: none; cursor: pointer; }
     details summary::-webkit-details-marker { display: none; }
     details[open] .faq-icon { transform: rotate(45deg); }
     .modal.hidden { display: none; }
-    html { scroll-behavior: smooth; }
+
+    /* Free tier badges: small pills */
+    .tier-badge { display:inline-flex; align-items:center; gap:0.5rem; border:1.5px solid rgb(52 211 153 / 0.6); background:rgb(52 211 153 / 0.08); color:#34d399; border-radius:9999px; padding:0.35rem 0.85rem; font-size:0.8rem; font-weight:700; letter-spacing:0.02em; white-space:nowrap; box-shadow:0 0 14px rgb(52 211 153 / 0.2); }
+    .tier-badge i { font-size:0.95rem; }
+
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #34d399; outline-offset: 3px; border-radius: 0.75rem; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+    /* Product mockup */
+    .mock { max-width:26rem; margin:0 auto; border-radius:1.5rem; overflow:hidden; background:#0c0c12; border:1px solid rgb(255 255 255 / 0.12); box-shadow:0 30px 80px rgb(99 102 241 / 0.25), 0 0 0 6px rgb(255 255 255 / 0.03); }
+    .mock-bar { display:flex; align-items:center; gap:0.4rem; padding:0.7rem 1rem; background:#16161d; border-bottom:1px solid rgb(255 255 255 / 0.08); }
+    .mock-dot { width:0.6rem; height:0.6rem; border-radius:9999px; background:#3f3f46; }
+    .mock-search { display:flex; align-items:center; gap:0.5rem; margin:1rem; padding:0.7rem 1rem; border-radius:0.9rem; background:#18181b; border:1px solid rgb(96 165 250 / 0.5); color:#d4d4d8; font-size:0.9rem; box-shadow:0 0 18px rgb(96 165 250 / 0.2); }
+    .mock-row { display:flex; justify-content:space-between; align-items:center; gap:0.75rem; margin:0 1rem 0.6rem; padding:0.8rem 0.9rem; border-radius:0.9rem; background:#18181b; border:1px solid rgb(255 255 255 / 0.06); text-align:left; }
+    .mock-row b { display:block; font-size:0.9rem; font-weight:600; color:#f4f4f5; }
+    .mock-row small { color:#71717a; font-size:0.72rem; }
+    .src { font-size:0.65rem; font-weight:700; letter-spacing:0.04em; padding:0.2rem 0.55rem; border-radius:9999px; white-space:nowrap; }
+    .tag { font-size:0.68rem; padding:0.15rem 0.55rem; border-radius:9999px; background:rgb(192 132 252 / 0.15); color:#d8b4fe; }
+    .waitlist { display:flex; gap:0.5rem; max-width:24rem; margin:0 auto 2.25rem; padding:0 1rem; }
+    .waitlist input { flex:1; min-width:0; padding:0.7rem 1rem; border-radius:0.75rem; background:#0c0c12; border:1px solid rgb(255 255 255 / 0.18); color:#fff; font-size:0.9rem; }
+    .waitlist input::placeholder { color:#6b7280; }
+    .waitlist button { padding:0.7rem 1.1rem; border-radius:0.75rem; background:#34d399; color:#000; font-weight:700; font-size:0.9rem; white-space:nowrap; transition:all .3s; }
+    .waitlist button:hover { background:#6ee7b7; transform:translateY(-2px); }
+    /* Footer store buttons */
+    .store-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.75rem; max-width:28rem; margin:0 auto 2.25rem; padding:0 1rem; }
+    @media (min-width:640px){ .store-grid { grid-template-columns:repeat(4,1fr); max-width:44rem; } }
+    .store-btn { position:relative; display:flex; align-items:center; gap:0.6rem; padding:0.7rem 0.8rem; text-align:left; border-radius:0.9rem; background:#0c0c12; border:1px solid rgb(255 255 255 / 0.18); color:#fff; transition:all .3s; }
+    .store-btn:hover { transform:translateY(-3px); border-color:rgb(52 211 153 / 0.7); box-shadow:0 8px 24px rgb(52 211 153 / 0.2); }
+    .store-btn i { font-size:1.5rem; }
+    .store-btn small { display:block; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:#9ca3af; }
+    .store-btn b { display:block; font-size:0.85rem; line-height:1.15; }
+    .store-soon { position:absolute; top:-0.5rem; right:0.5rem; background:#fbbf24; color:#000; font-size:0.55rem; font-weight:800; letter-spacing:0.08em; padding:0.1rem 0.45rem; border-radius:9999px; }
+
+    /* Footer social icons */
+    .social-row { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; max-width:22rem; margin:0 auto 0.9rem; padding:0 1rem; }
+    .social-icon { width:2.75rem; height:2.75rem; display:inline-flex; align-items:center; justify-content:center; border-radius:0.6rem; background:rgb(255 255 255 / 0.05); border:1px solid rgb(255 255 255 / 0.12); color:#e5e7eb; font-size:1rem; font-weight:800; transition:all .3s; }
+    .social-icon:hover { transform:translateY(-3px); background:rgb(96 165 250 / 0.15); border-color:#60a5fa; box-shadow:0 8px 22px rgb(96 165 250 / 0.3); color:#fff; }
+
+    /* PRO card: animated gradient border + glow so it pops */
+    .pro-wrap { position: relative; max-width: 28rem; margin: 0 auto; padding: 3px; border-radius: 1.75rem; background: linear-gradient(120deg, #34d399, #60a5fa, #c084fc, #34d399); background-size: 300% 300%; animation: proShift 6s ease infinite; box-shadow: 0 0 45px rgb(96 165 250 / 0.35), 0 0 90px rgb(192 132 252 / 0.2); transition: transform .3s; }
+    .pro-wrap:hover { transform: translateY(-6px) scale(1.02); }
+    .pro-card { background: radial-gradient(circle at 80% 0%, #1e1b4b 0%, #18181b 55%); border-radius: 1.6rem; padding: 2.5rem 2rem 2rem; }
+    .pro-ribbon { position: absolute; top: -0.95rem; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #fbbf24, #f59e0b); color: #000; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.14em; padding: 0.4rem 1.1rem; border-radius: 9999px; box-shadow: 0 6px 20px rgb(251 191 36 / 0.5); white-space: nowrap; z-index: 2; }
+    .pro-cta { background: linear-gradient(90deg, #34d399, #2dd4bf, #34d399); background-size: 200% 100%; animation: ctaPulse 2.4s ease-in-out infinite; box-shadow: 0 10px 30px rgb(52 211 153 / 0.5); }
+    @keyframes proShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes ctaPulse { 0%,100% { box-shadow: 0 10px 30px rgb(52 211 153 / 0.45); background-position: 0% 50%; } 50% { box-shadow: 0 10px 42px rgb(52 211 153 / 0.85); background-position: 100% 50%; } }
+    @media (prefers-reduced-motion: reduce) { .pro-wrap, .pro-cta { animation: none; } }
+
     /* Circled "Sync" badge on the Pro card */
-    .sync-badge {
-      border: 2px solid #34d399;
-      border-radius: 9999px;
-      padding: 0.35rem 1rem;
-      color: #34d399;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      box-shadow: 0 0 18px rgb(52 211 153 / 0.35);
-      white-space: nowrap;
-    }
-    /* Free tier badges: shield (Private) + memory chip (Local) */
-    .tier-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: 1.5px solid rgb(52 211 153 / 0.6);
-      background: rgb(52 211 153 / 0.08);
-      color: #34d399;
-      border-radius: 9999px;
-      padding: 0.35rem 0.85rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-      box-shadow: 0 0 14px rgb(52 211 153 / 0.2);
-    }
-    .tier-badge i { font-size: 0.95rem; }
+    .sync-badge { border: 2px solid #34d399; border-radius: 9999px; padding: 0.35rem 1rem; color: #34d399; font-weight: 700; letter-spacing: 0.08em; font-size: 0.75rem; text-transform: uppercase; box-shadow: 0 0 18px rgb(52 211 153 / 0.35); white-space: nowrap; }
+
     /* Shield + lock medallion */
-    .lock-badge {
-      width: 4.5rem;
-      height: 4.5rem;
-      border-radius: 9999px;
-      padding: 2px;
-      background: conic-gradient(from 210deg, #34d399, #60a5fa, #c084fc, #34d399);
-      box-shadow: 0 0 30px rgb(52 211 153 / 0.35);
-    }
-    .lock-badge-ring {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 9999px;
-      background: radial-gradient(circle at 30% 25%, #1b2a2a 0%, #0c0c12 70%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lock-badge-shield {
-      font-size: 2.25rem;
-      color: #34d399;
-      opacity: 0.28;
-    }
-    .lock-badge-lock {
-      position: absolute;
-      font-size: 1.15rem;
-      color: #ecfdf5;
-      transform: translateY(1px);
-      filter: drop-shadow(0 0 8px rgb(52 211 153 / 0.9));
-    }
+    .lock-badge { width: 4.5rem; height: 4.5rem; border-radius: 9999px; padding: 2px; background: conic-gradient(from 210deg, #34d399, #60a5fa, #c084fc, #34d399); box-shadow: 0 0 30px rgb(52 211 153 / 0.35); }
+    .lock-badge-ring { position: relative; width: 100%; height: 100%; border-radius: 9999px; background: radial-gradient(circle at 30% 25%, #1b2a2a 0%, #0c0c12 70%); display: flex; align-items: center; justify-content: center; }
+    .lock-badge-shield { font-size: 2.25rem; color: #34d399; opacity: 0.28; }
+    .lock-badge-lock { position: absolute; font-size: 1.15rem; color: #ecfdf5; transform: translateY(1px); filter: drop-shadow(0 0 8px rgb(52 211 153 / 0.9)); }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen">
@@ -95,7 +95,7 @@
     <div class="flex items-center gap-4 md:gap-6 group">
       <div class="relative logo-glow">
         <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/70 ring-4 ring-white/10 transition-all group-hover:scale-110">
-          <i class="fa-solid fa-floppy-disk text-3xl md:text-4xl text-white"></i>
+          <svg viewBox="0 0 64 64" class="w-9 h-9 md:w-10 md:h-10" aria-hidden="true"><path d="M8 10a2 2 0 0 1 2-2h34l12 12v34a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2z" fill="#fff"/><rect x="18" y="8" width="24" height="14" rx="1.5" fill="#6366f1"/><rect x="34" y="11" width="4" height="8" rx="1" fill="#fff"/><circle cx="32" cy="41" r="9" fill="#6366f1"/><circle cx="32" cy="41" r="4" fill="#fff"/></svg>
         </div>
         <div class="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 bg-emerald-400 text-black text-xs font-bold px-2 py-0.5 rounded-xl shadow-lg ring-2 ring-black">AI</div>
       </div>
@@ -117,10 +117,25 @@
       ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity and more —<br>
       <span class="text-amber-400">own every conversation you have with them.</span>
     </p>
-    <button onclick="alert('Starting ChatSaver...')"
+    <button onclick="goGet()"
             class="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-black font-bold text-lg md:text-xl px-8 md:px-10 py-5 md:py-6 rounded-3xl w-full max-w-xs mx-auto block transition-all shadow-xl shadow-emerald-500/50">
       Start Saving My Chats Now
     </button>
+  </section>
+
+  <!-- PRODUCT PREVIEW -->
+  <section class="px-6 py-16 bg-black text-center">
+    <span class="inline-block text-emerald-400 font-semibold tracking-widest text-sm mb-4">SEE IT IN ACTION</span>
+    <h2 class="text-3xl md:text-4xl font-bold mb-10 leading-tight">Every AI chat.<br>One searchable library.</h2>
+    <div class="mock">
+      <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span class="ml-3 text-xs text-gray-500">My ChatSaver Library</span></div>
+      <div class="mock-search"><i class="fa-solid fa-magnifying-glass"></i><span>pricing strategy</span></div>
+      <div class="mock-row"><div><b>Pricing tiers for my SaaS</b><small>Saved today · <span class="tag">business</span></small></div><span class="src bg-emerald-400/15 text-emerald-300">ChatGPT</span></div>
+      <div class="mock-row"><div><b>Launch plan, week by week</b><small>Saved yesterday · <span class="tag">planning</span></small></div><span class="src bg-orange-400/15 text-orange-300">Claude</span></div>
+      <div class="mock-row"><div><b>Competitor teardown notes</b><small>Saved 3 days ago · <span class="tag">research</span></small></div><span class="src bg-sky-400/15 text-sky-300">Grok</span></div>
+      <div class="mock-row"><div><b>Landing page copy ideas</b><small>Saved last week · <span class="tag">writing</span></small></div><span class="src bg-indigo-400/15 text-indigo-300">Gemini</span></div>
+      <p class="text-xs text-gray-500 pb-4 pt-1">Illustration of the ChatSaver library</p>
+    </div>
   </section>
 
   <!-- FREE PLAN -->
@@ -133,7 +148,7 @@
           <p class="text-4xl font-bold mt-1">$0</p>
           <div class="mt-3 flex flex-wrap gap-2">
             <span class="tier-badge"><i class="fa-solid fa-shield-halved"></i>100% Private</span>
-            <span class="tier-badge"><i class="fa-solid fa-memory"></i>100% Local</span>
+            <span class="tier-badge"><i class="fa-solid fa-laptop"></i>100% Local</span>
           </div>
         </div>
         <ul class="space-y-4">
@@ -143,7 +158,7 @@
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Lightning-fast Search</li>
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Everything stays on your device — no cloud, no tracking</li>
         </ul>
-        <button class="mt-10 w-full bg-white text-black font-semibold py-4 rounded-2xl text-lg hover:bg-gray-200 transition">Get Started Free</button>
+        <button onclick="goGet()" class="mt-10 w-full bg-white text-black font-semibold py-4 rounded-2xl text-lg hover:bg-gray-200 transition">Get Started Free</button>
       </div>
     </div>
   </section>
@@ -194,29 +209,32 @@
   </section>
 
   <!-- PRO -->
-  <section class="px-6 py-12">
-    <div class="max-w-md mx-auto bg-zinc-900 border border-blue-500/30 rounded-3xl p-8">
-      <div class="mb-6 flex items-start justify-between gap-4">
-        <div>
-          <span class="uppercase text-emerald-400 font-medium tracking-widest">PRO</span>
-          <h3 class="text-4xl font-bold">$1.99 <span class="text-base font-normal text-gray-400">/month</span></h3>
+  <section class="px-6 py-14">
+    <div class="pro-wrap">
+      <span class="pro-ribbon"><i class="fa-solid fa-crown mr-1.5"></i>BEST VALUE</span>
+      <div class="pro-card">
+        <div class="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <span class="uppercase text-emerald-400 font-semibold tracking-widest">PRO</span>
+            <h3 class="text-5xl font-extrabold">$1.99 <span class="text-base font-normal text-gray-400">/month</span></h3>
+          </div>
+          <span class="sync-badge shrink-0 mt-1"><i class="fa-solid fa-rotate mr-1.5"></i>Sync</span>
         </div>
-        <!-- circled Sync badge, inside the card -->
-        <span class="sync-badge shrink-0 mt-1"><i class="fa-solid fa-rotate mr-1.5"></i>Sync</span>
+        <ul class="space-y-4">
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="highlight text-xl">Master Memory Profile</span><br><span class="text-gray-400 text-base">- AI remembers you faster</span></span></li>
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="font-semibold">Never introduce yourself twice</span><br><span class="text-gray-400 text-base">- Every new AI already knows you from message one</span></span></li>
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span> Unlimited conversations</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span> End-to-end encrypted cloud sync — move between devices</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span> Smart tagging + Cloud search</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span> Advanced filters &amp; bulk export</li>
+          <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="font-semibold">Priority support &amp; early access</span><br><span class="text-gray-400 text-base">- Be first to try new AI integrations</span></span></li>
+        </ul>
+        <button onclick="goGet()" class="pro-cta mt-10 w-full text-black font-extrabold py-4 rounded-2xl text-lg hover:scale-105 transition">Go Pro Now</button>
       </div>
-      <ul class="space-y-4">
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="highlight text-xl">Master Memory Profile</span><br><span class="text-gray-400 text-base">- AI remembers you faster</span></span></li>
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span><span><span class="font-semibold">Never introduce yourself twice</span><br><span class="text-gray-400 text-base">- Every new AI already knows you from message one</span></span></li>
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span> Unlimited conversations</li>
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span> End-to-end encrypted cloud sync — move between devices</li>
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span> Smart tagging + Cloud search</li>
-        <li class="flex gap-3"><span class="text-emerald-400">✔</span> Advanced filters &amp; Export</li>
-      </ul>
-      <button class="mt-10 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-105 transition">Go Pro Now</button>
     </div>
 
     <!-- PRIVACY BOX -->
-    <div class="max-w-md mx-auto mt-8 bg-zinc-900/60 border border-emerald-500/25 rounded-3xl p-8">
+    <div class="max-w-md mx-auto mt-10 bg-zinc-900/60 border border-emerald-500/25 rounded-3xl p-8">
       <div class="flex items-center gap-5 mb-5">
         <div class="lock-badge shrink-0">
           <div class="lock-badge-ring">
@@ -255,7 +273,7 @@
 
     <div class="max-w-md mx-auto text-center mt-16">
       <h2 class="text-4xl font-bold mb-6">Ready to start saving<br>your best conversations?</h2>
-      <button onclick="alert('Starting ChatSaver...')"
+      <button onclick="goGet()"
               class="bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold text-xl px-12 py-6 rounded-3xl w-full max-w-xs mx-auto block shadow-xl shadow-emerald-500/50 hover:scale-105 transition">
         Start Saving My Chats Now
       </button>
@@ -366,7 +384,35 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="text-center py-12 text-sm border-t border-gray-800">
+  <footer class="text-center pt-14 pb-10 text-sm border-t border-white/10 bg-gradient-to-b from-zinc-950 to-black">
+    <!-- SOCIAL HANDLES: replace href="#" and the handle text with your real accounts -->
+    <!-- STORES: replace href="#" with your real store links -->
+    <p class="text-gray-400 font-semibold tracking-widest text-xs uppercase mb-4">Get ChatSaver</p>
+    <div id="get" class="store-grid">
+      <a href="#" class="store-btn" aria-label="Add to Chrome"><i class="fa-brands fa-chrome"></i><span><small>Get it on</small><b>Chrome Web Store</b></span></a>
+      <a href="#" class="store-btn" aria-label="Add to Firefox"><i class="fa-brands fa-firefox-browser"></i><span><small>Get it on</small><b>Firefox Add-ons</b></span></a>
+      <a href="#" class="store-btn" aria-label="Google Play sign-up"><span class="store-soon">SOON</span><i class="fa-brands fa-google-play"></i><span><small>Get it on</small><b>Google Play</b></span></a>
+      <a href="#" class="store-btn" aria-label="App Store sign-up"><span class="store-soon">SOON</span><i class="fa-brands fa-apple"></i><span><small>Download on the</small><b>App Store</b></span></a>
+    </div>
+    <p class="text-gray-500 text-xs mb-3">Want the mobile apps first? Get an email when they launch.</p>
+    <form class="waitlist" onsubmit="return joinWaitlist(event)">
+      <input type="email" id="wl-email" required placeholder="you@email.com" aria-label="Email address">
+      <button type="submit">Notify me</button>
+    </form>
+    <p id="wl-msg" class="text-emerald-400 text-sm -mt-6 mb-8 hidden"></p>
+    <p class="text-gray-400 font-semibold tracking-widest text-xs uppercase mb-4">Follow ChatSaver</p>
+    <div class="social-row">
+      <a href="#" class="social-icon" aria-label="ChatSaver on X" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on YouTube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on Threads" title="Threads"><i class="fa-brands fa-threads"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on Reddit" title="Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+      <a href="#" class="social-icon" aria-label="ChatSaver on Discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+    </div>
+    <p class="text-gray-500 text-xs mb-8">@chatsaverai on every platform</p>
     <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-6">
       <a href="#" onclick="showModal('about-modal'); return false;" class="footer-link font-medium">About</a>
       <a href="#" onclick="showModal('privacy-modal'); return false;" class="footer-link font-medium">Privacy</a>
@@ -379,12 +425,11 @@
         <i class="fa-solid fa-headset mr-2"></i>Tech Support / Help Center
       </a>
     </div>
-    <!-- Year updates automatically; 2026 shown as a fallback if JS is off -->
-    <p class="text-gray-500 text-center px-6">Copyright © <span id="current-year">2026</span> ChatSaver.ai &nbsp;All Rights Reserved.</p>
+    <p class="text-gray-600 text-center px-6 pt-6 border-t border-white/5 max-w-md mx-auto">Copyright © <span id="current-year">2026</span> ChatSaver.ai &nbsp;All Rights Reserved.</p>
   </footer>
 
   <!-- MODALS -->
-  <div id="about-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+  <div id="about-modal" role="dialog" aria-modal="true" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
     <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8">
       <h2 class="text-3xl font-bold mb-6">About ChatSaver.ai</h2>
       <p class="text-gray-300 leading-relaxed">ChatSaver.ai was built for heavy AI users who want to own their conversations. Whether you're brainstorming, learning, or building something important — we make sure your best ideas stay yours.</p>
@@ -392,7 +437,7 @@
     </div>
   </div>
 
-  <div id="privacy-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+  <div id="privacy-modal" role="dialog" aria-modal="true" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
     <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[80vh] overflow-auto">
       <h2 class="text-3xl font-bold mb-6">Privacy Policy</h2>
       <p class="text-gray-300 leading-relaxed">Your chats belong to you.<br><br>On the Free tier, everything is saved <strong>locally on your device</strong>. Nothing is uploaded, and there is no tracking.<br><br>On Pro, cloud sync is <strong>end-to-end encrypted</strong>. Your conversations are encrypted on your device before they leave it, so we cannot read them.</p>
@@ -401,7 +446,7 @@
     </div>
   </div>
 
-  <div id="terms-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+  <div id="terms-modal" role="dialog" aria-modal="true" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
     <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[80vh] overflow-auto">
       <h2 class="text-3xl font-bold mb-6">Terms of Service</h2>
       <p class="text-gray-300 leading-relaxed">By using ChatSaver.ai, you agree to use the app for personal, lawful purposes. Free accounts may save up to 25 conversations; Pro accounts unlock unlimited saving and end-to-end encrypted cloud sync.<br><br>We are not responsible for content generated by third-party AI platforms — ChatSaver.ai simply helps you save and organize your own conversations.</p>
@@ -410,7 +455,7 @@
     </div>
   </div>
 
-  <div id="help-modal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+  <div id="help-modal" role="dialog" aria-modal="true" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
     <div class="bg-zinc-900 rounded-3xl max-w-lg w-full mx-4 p-8 max-h-[80vh] overflow-auto">
       <h2 class="text-3xl font-bold mb-6">Tech Support / Help Center</h2>
       <p class="text-gray-300 leading-relaxed">Need a hand? Start here:</p>
@@ -424,7 +469,36 @@
   </div>
 
   <script>
-    // Auto-update the copyright year
+    // Waitlist: set WAITLIST_ENDPOINT to your form service URL (Formspree, Google Apps Script, etc.).
+    // Until then it falls back to opening a pre-filled email to your support address.
+    var WAITLIST_ENDPOINT = '';
+    function joinWaitlist(e) {
+      e.preventDefault();
+      var email = document.getElementById('wl-email').value.trim();
+      var msg = document.getElementById('wl-msg');
+      function done(t) { msg.textContent = t; msg.classList.remove('hidden'); }
+      if (WAITLIST_ENDPOINT) {
+        fetch(WAITLIST_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) })
+          .then(function () { done("You're on the list. We'll email you at launch."); e.target.reset(); })
+          .catch(function () { done('Something went wrong. Please try again.'); });
+      } else {
+        window.location.href = 'mailto:support@chatsaver.ai?subject=' + encodeURIComponent('Notify me: mobile apps') + '&body=' + encodeURIComponent('Please add me to the launch list: ' + email);
+        done('Almost there: send the email that just opened to join the list.');
+      }
+      return false;
+    }
+    function goGet() {
+      document.getElementById('get').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') document.querySelectorAll('.modal:not(.hidden)').forEach(function (m) { m.classList.add('hidden'); document.body.style.overflow = ''; });
+    });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('section h2, #testimonials-section .bg-zinc-900').forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+    }
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
     function toggleMore(section) {
@@ -442,7 +516,6 @@
       document.getElementById(id).classList.add('hidden');
       document.body.style.overflow = '';
     }
-    // Close modal when clicking the dark backdrop
     document.querySelectorAll('.modal').forEach(function (modal) {
       modal.addEventListener('click', function (e) {
         if (e.target === modal) {
