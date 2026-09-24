@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ChatSaver.AI — Save, search & own every AI chat</title>
   <meta name="description" content="Save every ChatGPT, Claude, Grok, Gemini, Kimi and Perplexity conversation in one private library. Free and 100% local, or go Pro for a Master Memory Profile and encrypted sync.">
   <meta name="theme-color" content="#0a0a1f">
@@ -14,13 +14,15 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='.5' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 12h30l8 8v30a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z' fill='white'/%3E%3Crect x='19' y='12' width='20' height='13' rx='1.5' fill='%236366f1'/%3E%3Crect x='32' y='14.5' width='4' height='8' rx='1' fill='white'/%3E%3Crect x='19' y='32' width='26' height='18' rx='2' fill='%23c7d2fe'/%3E%3Ccircle cx='51' cy='13' r='11' fill='%2334d399' stroke='black' stroke-width='2'/%3E%3Ctext x='51' y='17.5' font-family='Arial,sans-serif' font-weight='800' font-size='12' text-anchor='middle' fill='black'%3EAI%3C/text%3E%3C/svg%3E">
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script defer data-auto-replace-svg="nest" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    :root { box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+    html { scroll-padding-top:env(safe-area-inset-top,0px); }
+    body { background:#000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
     html { scroll-behavior: smooth; }
     .hero-bg { background: linear-gradient(180deg, #1a0033 0%, #0a0a1f 70%); }
     .logo-glow { filter: drop-shadow(0 0 25px rgb(96 165 250 / 0.6)); }
-    .highlight { background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+    .highlight { background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
     .step-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
     .step-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3); }
     .footer-link { color: #93c5fd; transition: all 0.3s; }
@@ -30,14 +32,11 @@
     details[open] .faq-icon { transform: rotate(45deg); }
     .modal.hidden { display: none; }
 
-    /* Free tier badges: small pills */
-    .tier-badge { display:inline-flex; align-items:center; gap:0.5rem; border:1.5px solid rgb(52 211 153 / 0.6); background:rgb(52 211 153 / 0.08); color:#34d399; border-radius:9999px; padding:0.35rem 0.85rem; font-size:0.8rem; font-weight:700; letter-spacing:0.02em; white-space:nowrap; box-shadow:0 0 14px rgb(52 211 153 / 0.2); }
-    .tier-badge i { font-size:0.95rem; }
-
     a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #34d399; outline-offset: 3px; border-radius: 0.75rem; }
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.in { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
     /* Product mockup */
     .mock { max-width:26rem; margin:0 auto; border-radius:1.5rem; overflow:hidden; background:#0c0c12; border:1px solid rgb(255 255 255 / 0.12); box-shadow:0 30px 80px rgb(99 102 241 / 0.25), 0 0 0 6px rgb(255 255 255 / 0.03); }
     .mock-bar { display:flex; align-items:center; gap:0.4rem; padding:0.7rem 1rem; background:#16161d; border-bottom:1px solid rgb(255 255 255 / 0.08); }
@@ -48,27 +47,45 @@
     .mock-row small { color:#71717a; font-size:0.72rem; }
     .src { font-size:0.65rem; font-weight:700; letter-spacing:0.04em; padding:0.2rem 0.55rem; border-radius:9999px; white-space:nowrap; }
     .tag { font-size:0.68rem; padding:0.15rem 0.55rem; border-radius:9999px; background:rgb(192 132 252 / 0.15); color:#d8b4fe; }
+
     .waitlist { display:flex; gap:0.5rem; max-width:24rem; margin:0 auto 2.25rem; padding:0 1rem; }
     .waitlist input { flex:1; min-width:0; padding:0.7rem 1rem; border-radius:0.75rem; background:#0c0c12; border:1px solid rgb(255 255 255 / 0.18); color:#fff; font-size:0.9rem; }
     .waitlist input::placeholder { color:#6b7280; }
     .waitlist button { padding:0.7rem 1.1rem; border-radius:0.75rem; background:#34d399; color:#000; font-weight:700; font-size:0.9rem; white-space:nowrap; transition:all .3s; }
     .waitlist button:hover { background:#6ee7b7; transform:translateY(-2px); }
-    /* Footer store buttons */
-    .store-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.75rem; max-width:28rem; margin:0 auto 2.25rem; padding:0 1rem; }
-    @media (min-width:640px){ .store-grid { grid-template-columns:repeat(4,1fr); max-width:44rem; } }
-    .store-btn { position:relative; display:flex; align-items:center; gap:0.6rem; padding:0.7rem 0.8rem; text-align:left; border-radius:0.9rem; background:#0c0c12; border:1px solid rgb(255 255 255 / 0.18); color:#fff; transition:all .3s; }
-    .store-btn:hover { transform:translateY(-3px); border-color:rgb(52 211 153 / 0.7); box-shadow:0 8px 24px rgb(52 211 153 / 0.2); }
-    .store-btn i { font-size:1.5rem; }
+
+    /* Footer store buttons: one vertical column, colorful */
+    .store-col { display:flex; flex-direction:column; gap:0.75rem; max-width:20rem; margin:0 auto 2.25rem; padding:0 1rem; }
+    .store-btn { position:relative; display:flex; align-items:center; gap:0.9rem; padding:0.8rem 1.1rem; text-align:left; border-radius:0.9rem; background:#0c0c12; border:1.5px solid var(--c, rgb(255 255 255 / 0.18)); color:#fff; transition:all .3s; box-shadow:0 0 18px color-mix(in srgb, var(--c) 22%, transparent); }
+    .store-btn:hover { transform:translateY(-3px); background:color-mix(in srgb, var(--c) 10%, #0c0c12); box-shadow:0 10px 28px color-mix(in srgb, var(--c) 40%, transparent); }
+    .store-btn i { font-size:2.2rem; width:2.4rem; text-align:center; display:inline-flex; justify-content:center; }
     .store-btn small { display:block; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:#9ca3af; }
-    .store-btn b { display:block; font-size:0.85rem; line-height:1.15; }
-    .store-soon { position:absolute; top:-0.5rem; right:0.5rem; background:#fbbf24; color:#000; font-size:0.55rem; font-weight:800; letter-spacing:0.08em; padding:0.1rem 0.45rem; border-radius:9999px; }
+    .store-btn b { display:block; font-size:1rem; line-height:1.15; }
+    .store-soon { position:absolute; top:-0.5rem; right:0.75rem; background:#fbbf24; color:#000; font-size:0.55rem; font-weight:800; letter-spacing:0.08em; padding:0.1rem 0.45rem; border-radius:9999px; }
+    .st-chrome  { --c:#4285f4; }
+    .st-firefox { --c:#ff7139; }
+    .st-android { --c:#3ddc84; }
+    .st-apple   { --c:#c084fc; }
 
-    /* Footer social icons */
-    .social-row { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; max-width:22rem; margin:0 auto 0.9rem; padding:0 1rem; }
-    .social-icon { width:2.75rem; height:2.75rem; display:inline-flex; align-items:center; justify-content:center; border-radius:0.6rem; background:rgb(255 255 255 / 0.05); border:1px solid rgb(255 255 255 / 0.12); color:#e5e7eb; font-size:1rem; font-weight:800; transition:all .3s; }
-    .social-icon:hover { transform:translateY(-3px); background:rgb(96 165 250 / 0.15); border-color:#60a5fa; box-shadow:0 8px 22px rgb(96 165 250 / 0.3); color:#fff; }
+    /* Footer social icons: real brand-colored logos */
+    .social-row { display:flex; flex-wrap:wrap; justify-content:center; gap:0.75rem; max-width:22rem; margin:0 auto 0.9rem; padding:0 1rem; }
+    .social-icon { --c:#fff; --bg:#000; width:3.1rem; height:3.1rem; display:inline-flex; align-items:center; justify-content:center; border-radius:0.85rem; color:#fff; background:var(--bg); border:1.5px solid rgb(255 255 255 / 0.18); font-size:1.5rem; transition:all .3s; box-shadow:0 0 16px color-mix(in srgb, var(--c) 40%, transparent); }
+    .social-icon:hover { transform:translateY(-3px) scale(1.08); box-shadow:0 10px 26px color-mix(in srgb, var(--c) 65%, transparent); }
+    .sc-x { --bg:#000; --c:#ffffff; }
+    .sc-tiktok { --bg:#000; --c:#fe2c55; }
+    .sc-tiktok svg { filter:drop-shadow(-1.5px -1px 0 #25f4ee) drop-shadow(1.5px 1px 0 #fe2c55); }
+    .sc-instagram { --bg:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5); --c:#d62976; }
+    .sc-youtube { --bg:#ff0000; --c:#ff0000; }
+    .sc-facebook { --bg:#1877f2; --c:#1877f2; }
+    .sc-linkedin { --bg:#0a66c2; --c:#0a66c2; }
+    .sc-threads { --bg:#000; --c:#ffffff; }
+    .sc-reddit { --bg:#ff4500; --c:#ff4500; }
+    .sc-discord { --bg:#5865f2; --c:#5865f2; }
+    .store-logo { width:2.4rem; height:2.4rem; flex:none; }
+    .store-btn .fa-apple { width:2.4rem; height:2.4rem; }
+    .store-btn .fa-apple svg { width:2.1rem; height:2.4rem; fill:url(#g-apple); }
 
-    /* PRO card: animated gradient border + glow so it pops */
+    /* PRO card */
     .pro-wrap { position: relative; max-width: 28rem; margin: 0 auto; padding: 3px; border-radius: 1.75rem; background: linear-gradient(120deg, #34d399, #60a5fa, #c084fc, #34d399); background-size: 300% 300%; animation: proShift 6s ease infinite; box-shadow: 0 0 45px rgb(96 165 250 / 0.35), 0 0 90px rgb(192 132 252 / 0.2); transition: transform .3s; }
     .pro-wrap:hover { transform: translateY(-6px) scale(1.02); }
     .pro-card { background: radial-gradient(circle at 80% 0%, #1e1b4b 0%, #18181b 55%); border-radius: 1.6rem; padding: 2.5rem 2rem 2rem; }
@@ -78,10 +95,8 @@
     @keyframes ctaPulse { 0%,100% { box-shadow: 0 10px 30px rgb(52 211 153 / 0.45); background-position: 0% 50%; } 50% { box-shadow: 0 10px 42px rgb(52 211 153 / 0.85); background-position: 100% 50%; } }
     @media (prefers-reduced-motion: reduce) { .pro-wrap, .pro-cta { animation: none; } }
 
-    /* Circled "Sync" badge on the Pro card */
     .sync-badge { border: 2px solid #34d399; border-radius: 9999px; padding: 0.35rem 1rem; color: #34d399; font-weight: 700; letter-spacing: 0.08em; font-size: 0.75rem; text-transform: uppercase; box-shadow: 0 0 18px rgb(52 211 153 / 0.35); white-space: nowrap; }
 
-    /* Shield + lock medallion */
     .lock-badge { width: 4.5rem; height: 4.5rem; border-radius: 9999px; padding: 2px; background: conic-gradient(from 210deg, #34d399, #60a5fa, #c084fc, #34d399); box-shadow: 0 0 30px rgb(52 211 153 / 0.35); }
     .lock-badge-ring { position: relative; width: 100%; height: 100%; border-radius: 9999px; background: radial-gradient(circle at 30% 25%, #1b2a2a 0%, #0c0c12 70%); display: flex; align-items: center; justify-content: center; }
     .lock-badge-shield { font-size: 2.25rem; color: #34d399; opacity: 0.28; }
@@ -89,6 +104,7 @@
   </style>
 </head>
 <body class="bg-black text-white min-h-screen">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="g-apple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#61bb46"/><stop offset=".1667" stop-color="#61bb46"/><stop offset=".1667" stop-color="#fdb827"/><stop offset=".3333" stop-color="#fdb827"/><stop offset=".3333" stop-color="#f5821f"/><stop offset=".5" stop-color="#f5821f"/><stop offset=".5" stop-color="#e03a3e"/><stop offset=".6667" stop-color="#e03a3e"/><stop offset=".6667" stop-color="#963d97"/><stop offset=".8333" stop-color="#963d97"/><stop offset=".8333" stop-color="#009ddc"/><stop offset="1" stop-color="#009ddc"/></linearGradient></defs></svg>
 
   <!-- LOGO -->
   <header class="py-10 md:py-14 flex justify-center">
@@ -121,6 +137,8 @@
             class="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 text-black font-bold text-lg md:text-xl px-8 md:px-10 py-5 md:py-6 rounded-3xl w-full max-w-xs mx-auto block transition-all shadow-xl shadow-emerald-500/50">
       Start Saving My Chats Now
     </button>
+    <!-- DEMO LINK: replace href="#" with your demo / tutorial video or page -->
+    <a href="#" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 text-blue-300 hover:text-white font-semibold transition"><i class="fa-solid fa-circle-play text-xl"></i> Watch the demo &amp; tutorial</a>
   </section>
 
   <!-- PRODUCT PREVIEW -->
@@ -146,10 +164,7 @@
         <div class="mb-6">
           <h3 class="text-3xl font-bold">Free</h3>
           <p class="text-4xl font-bold mt-1">$0</p>
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="tier-badge"><i class="fa-solid fa-shield-halved"></i>100% Private</span>
-            <span class="tier-badge"><i class="fa-solid fa-laptop"></i>100% Local</span>
-          </div>
+          <p class="mt-3 text-emerald-400 font-semibold">100% Private &nbsp;·&nbsp; 100% Local</p>
         </div>
         <ul class="space-y-4">
           <li class="flex items-start gap-3 text-lg"><span class="text-emerald-400 mt-1">✔</span> Get started instantly</li>
@@ -385,14 +400,13 @@
 
   <!-- FOOTER -->
   <footer class="text-center pt-14 pb-10 text-sm border-t border-white/10 bg-gradient-to-b from-zinc-950 to-black">
-    <!-- SOCIAL HANDLES: replace href="#" and the handle text with your real accounts -->
     <!-- STORES: replace href="#" with your real store links -->
     <p class="text-gray-400 font-semibold tracking-widest text-xs uppercase mb-4">Get ChatSaver</p>
-    <div id="get" class="store-grid">
-      <a href="#" class="store-btn" aria-label="Add to Chrome"><i class="fa-brands fa-chrome"></i><span><small>Get it on</small><b>Chrome Web Store</b></span></a>
-      <a href="#" class="store-btn" aria-label="Add to Firefox"><i class="fa-brands fa-firefox-browser"></i><span><small>Get it on</small><b>Firefox Add-ons</b></span></a>
-      <a href="#" class="store-btn" aria-label="Google Play sign-up"><span class="store-soon">SOON</span><i class="fa-brands fa-google-play"></i><span><small>Get it on</small><b>Google Play</b></span></a>
-      <a href="#" class="store-btn" aria-label="App Store sign-up"><span class="store-soon">SOON</span><i class="fa-brands fa-apple"></i><span><small>Download on the</small><b>App Store</b></span></a>
+    <div id="get" class="store-col">
+      <a href="#" class="store-btn st-chrome" aria-label="Add to Chrome"><svg class="store-logo" viewBox="0 0 64 64" aria-hidden="true"><path fill="#ea4335" d="M32 32 7.75 18A28 28 0 0 1 56.25 18Z"/><path fill="#fbbc05" d="M32 32 56.25 18A28 28 0 0 1 32 60Z"/><path fill="#34a853" d="M32 32 32 60A28 28 0 0 1 7.75 18Z"/><circle cx="32" cy="32" r="13" fill="#fff"/><circle cx="32" cy="32" r="10" fill="#4285f4"/></svg><span><small>Get it on</small><b>Chrome Web Store</b></span></a>
+      <a href="#" class="store-btn st-firefox" aria-label="Add to Firefox"><svg class="store-logo" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ff1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9059ff"/><stop offset="1" stop-color="#3a1a9c"/></linearGradient><linearGradient id="ff2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe14f"/><stop offset=".4" stop-color="#ff9a2f"/><stop offset=".75" stop-color="#ff4f5e"/><stop offset="1" stop-color="#e31587"/></linearGradient></defs><circle cx="32" cy="33" r="23" fill="url(#ff1)"/><path fill="url(#ff2)" fill-rule="evenodd" d="M32 4a28 28 0 1 0 0 56a28 28 0 1 0 0-56zM37 5a23 23 0 1 0 0 46a23 23 0 1 0 0-46z"/><circle cx="46" cy="14" r="4" fill="#ffe14f"/></svg><span><small>Get it on</small><b>Firefox Add-ons</b></span></a>
+      <a href="#" class="store-btn st-android" aria-label="Google Play sign-up"><span class="store-soon">SOON</span><svg class="store-logo" viewBox="0 0 64 64" aria-hidden="true"><g fill="#3ddc84"><path d="M14 30a18 18 0 0 1 36 0z"/><rect x="14" y="33" width="36" height="20" rx="3"/><rect x="6" y="33" width="6" height="16" rx="3"/><rect x="52" y="33" width="6" height="16" rx="3"/><rect x="21" y="50" width="7" height="10" rx="3.5"/><rect x="36" y="50" width="7" height="10" rx="3.5"/></g><path d="M22 9l4 6M42 9l-4 6" stroke="#3ddc84" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle cx="26" cy="22" r="2.2" fill="#fff"/><circle cx="38" cy="22" r="2.2" fill="#fff"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
+      <a href="#" class="store-btn st-apple" aria-label="App Store sign-up"><span class="store-soon">SOON</span><i class="fa-brands fa-apple"></i><span><small>Download on the</small><b>App Store</b></span></a>
     </div>
     <p class="text-gray-500 text-xs mb-3">Want the mobile apps first? Get an email when they launch.</p>
     <form class="waitlist" onsubmit="return joinWaitlist(event)">
@@ -400,17 +414,19 @@
       <button type="submit">Notify me</button>
     </form>
     <p id="wl-msg" class="text-emerald-400 text-sm -mt-6 mb-8 hidden"></p>
+
+    <!-- SOCIAL HANDLES: replace href="#" with your real accounts -->
     <p class="text-gray-400 font-semibold tracking-widest text-xs uppercase mb-4">Follow ChatSaver</p>
     <div class="social-row">
-      <a href="#" class="social-icon" aria-label="ChatSaver on X" title="X"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on YouTube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on Threads" title="Threads"><i class="fa-brands fa-threads"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on Reddit" title="Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
-      <a href="#" class="social-icon" aria-label="ChatSaver on Discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
+      <a href="#" class="social-icon sc-x" aria-label="ChatSaver on X" title="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" class="social-icon sc-tiktok" aria-label="ChatSaver on TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      <a href="#" class="social-icon sc-instagram" aria-label="ChatSaver on Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="social-icon sc-youtube" aria-label="ChatSaver on YouTube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" class="social-icon sc-facebook" aria-label="ChatSaver on Facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" class="social-icon sc-linkedin" aria-label="ChatSaver on LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" class="social-icon sc-threads" aria-label="ChatSaver on Threads" title="Threads"><i class="fa-brands fa-threads"></i></a>
+      <a href="#" class="social-icon sc-reddit" aria-label="ChatSaver on Reddit" title="Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+      <a href="#" class="social-icon sc-discord" aria-label="ChatSaver on Discord" title="Discord"><i class="fa-brands fa-discord"></i></a>
     </div>
     <p class="text-gray-500 text-xs mb-8">@chatsaverai on every platform</p>
     <div class="flex flex-wrap justify-center gap-x-10 gap-y-4 mb-6">
@@ -421,6 +437,7 @@
       <a href="#testimonials-section" class="footer-link font-medium">Testimonials</a>
     </div>
     <div class="mb-6">
+      <a href="#" target="_blank" rel="noopener" class="footer-link font-medium mr-8"><i class="fa-solid fa-circle-play mr-2"></i>Demo / Tutorial</a>
       <a href="#" onclick="showModal('help-modal'); return false;" class="footer-link font-medium">
         <i class="fa-solid fa-headset mr-2"></i>Tech Support / Help Center
       </a>
