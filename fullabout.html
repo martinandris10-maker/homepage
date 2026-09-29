@@ -2,76 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - ChatSaver.ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>About — ChatSaver.ai</title>
+  <meta name="description" content="ChatSaver.ai gives you ownership and privacy over your conversations with every AI. Free is 100% local; Pro adds end-to-end encrypted sync.">
+  <meta name="theme-color" content="#0a0a1f">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='.5' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 12h30l8 8v30a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z' fill='white'/%3E%3Crect x='19' y='12' width='20' height='13' rx='1.5' fill='%236366f1'/%3E%3Crect x='32' y='14.5' width='4' height='8' rx='1' fill='white'/%3E%3Crect x='19' y='32' width='26' height='18' rx='2' fill='%23c7d2fe'/%3E%3Ccircle cx='51' cy='13' r='11' fill='%2334d399' stroke='black' stroke-width='2'/%3E%3Ctext x='51' y='17.5' font-family='Arial,sans-serif' font-weight='800' font-size='12' text-anchor='middle' fill='black'%3EAI%3C/text%3E%3C/svg%3E">
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script defer data-auto-replace-svg="nest" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .content {
-      max-width: 640px;
-      margin: 0 auto;
-    }
+    :root { box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+    html { scroll-behavior:smooth; }
+    body { background:#000; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .hero-bg { background:linear-gradient(180deg, #1a0033 0%, #0a0a1f 70%); }
+    .highlight { background:linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; }
+    .content { max-width:640px; margin:0 auto; }
+    .feature { transition:all .3s; }
+    .feature:hover { transform:translateY(-4px); border-color:rgb(52 211 153 / 0.4); }
+    .footer-link { color:#93c5fd; transition:all .3s; }
+    .footer-link:hover { color:#dbeafe; }
+    a:focus-visible { outline:2px solid #34d399; outline-offset:3px; border-radius:0.75rem; }
   </style>
 </head>
-<body class="bg-black text-white min-h-screen pb-20">
+<body class="bg-black text-white min-h-screen">
 
   <!-- Header -->
-  <header class="flex items-center justify-between px-6 py-5 border-b border-gray-800">
-    <a href="https://martinandris10-maker.github.io/homepage/" 
-       class="text-2xl font-light flex items-center hover:text-emerald-400 transition">
-      ← <span class="ml-2 text-base">Back to Home</span>
+  <header class="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-zinc-950">
+    <a href="index.html" class="flex items-center gap-2 text-gray-300 hover:text-emerald-400 transition">
+      <i class="fa-solid fa-arrow-left"></i><span class="text-base">Back to Home</span>
     </a>
-    <div class="font-semibold text-lg">About • ChatSaver.ai</div>
-    <div></div>
+    <div class="font-semibold text-sm md:text-base">About <span class="highlight">ChatSaver.ai</span></div>
   </header>
 
-  <div class="content px-6 pt-8">
-    <h1 class="text-4xl font-bold mb-10">About ChatSaver.AI</h1>
-    
+  <!-- Title -->
+  <section class="hero-bg px-6 pt-14 pb-12 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">About ChatSaver.ai</h1>
+    <p class="text-lg text-gray-300 max-w-md mx-auto">Your AI chats. Your library. <span class="text-amber-400">Your rules.</span></p>
+  </section>
+
+  <div class="content px-6 pt-10 pb-20">
+
     <!-- Our Mission -->
-    <section class="mb-12">
+    <section class="mb-14">
       <h2 class="text-2xl font-semibold mb-4">Our Mission</h2>
       <p class="text-gray-300 leading-relaxed">
-        ChatSaver.AI is designed to give users complete ownership and privacy over their conversations with artificial intelligence.
-        By operating entirely locally on your device, we ensure your data remains private and under your control.
+        ChatSaver.ai was built for heavy AI users who want to own their conversations. We give you complete ownership and privacy over everything you say to ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity and more, so your best ideas stay yours.
+      </p>
+      <p class="text-gray-300 leading-relaxed mt-4">
+        On the Free plan, ChatSaver.ai runs <strong class="text-white">entirely on your device</strong>. Nothing is uploaded and nothing is tracked.
       </p>
     </section>
 
     <!-- Key Features -->
-    <section class="mb-12">
+    <section class="mb-14">
       <h2 class="text-2xl font-semibold mb-6">Key Features</h2>
-      <div class="space-y-8 text-gray-300">
-        <div>
-          <strong class="text-emerald-400">• Local-First Architecture:</strong><br>
-          All conversations and profiles are stored exclusively on your device.
+      <div class="space-y-4">
+        <div class="feature bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <h3 class="text-emerald-400 font-semibold mb-1"><i class="fa-solid fa-shield-halved mr-2"></i>Local-First Architecture</h3>
+          <p class="text-gray-300">On Free, all conversations and profiles are stored exclusively on your device, with no cloud and no tracking.</p>
         </div>
-        <div>
-          <strong class="text-emerald-400">• Context Profiles:</strong><br>
-          Create reusable profiles that help AI models understand your needs and communication style more effectively.
+        <div class="feature bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <h3 class="text-emerald-400 font-semibold mb-1"><i class="fa-solid fa-brain mr-2"></i>Master Memory Profile</h3>
+          <p class="text-gray-300">Build one reusable profile from all your chats across every AI, so new AI tools can get to know you faster.</p>
         </div>
-        <div>
-          <strong class="text-emerald-400">• Multi-AI Support:</strong><br>
-          Save conversations across different AI platforms in one secure location.
+        <div class="feature bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <h3 class="text-emerald-400 font-semibold mb-1"><i class="fa-solid fa-layer-group mr-2"></i>Multi-AI Support</h3>
+          <p class="text-gray-300">Save conversations from different AI platforms in one searchable library.</p>
         </div>
-        <div>
-          <strong class="text-emerald-400">• Complete Data Control:</strong><br>
-          You maintain full ownership of your data with the ability to export or delete it at any time.
+        <div class="feature bg-zinc-900 rounded-2xl p-6 border border-white/5">
+          <h3 class="text-emerald-400 font-semibold mb-1"><i class="fa-solid fa-key mr-2"></i>Complete Data Control</h3>
+          <p class="text-gray-300">You keep full ownership of your data, with the ability to export or delete it at any time.</p>
         </div>
       </div>
     </section>
 
+    <!-- Free vs Pro privacy -->
+    <section class="mb-14">
+      <h2 class="text-2xl font-semibold mb-4">Private by Design, in Both Plans</h2>
+      <div class="bg-zinc-900/60 border border-emerald-500/25 rounded-2xl p-6 space-y-4">
+        <p class="text-gray-300 leading-relaxed"><strong class="text-white">Free</strong> is 100% private and 100% local. It never touches the cloud and stays on your device, forever.</p>
+        <p class="text-gray-300 leading-relaxed"><strong class="text-white">Pro</strong> adds end-to-end encrypted cloud sync so you can move between devices. Your chats are encrypted on your device before they leave it, so even we can't read them.</p>
+      </div>
+    </section>
+
     <!-- How it Works -->
-    <section>
+    <section class="mb-14">
       <h2 class="text-2xl font-semibold mb-4">How it Works</h2>
       <p class="text-gray-300 leading-relaxed">
-        ChatSaver.AI acts as a personal memory layer between you and various AI systems. Instead of losing context between conversations,
-        you can maintain rich, persistent profiles and notes that travel with each new interaction.
+        ChatSaver.ai acts as a personal memory layer between you and your AI tools. Instead of losing context between conversations, you keep a rich, persistent library and profile that travels with you to every new interaction.
       </p>
+    </section>
+
+    <!-- Contact -->
+    <section class="mb-6 text-center">
+      <p class="text-gray-400">Questions? Email <a href="mailto:cyberspacehead@yahoo.com" class="text-white font-semibold hover:text-emerald-300 transition break-all">cyberspacehead@yahoo.com</a></p>
+      <p class="text-gray-500 text-sm mt-1">We'll get back to you within 24 hours.</p>
     </section>
   </div>
 
+  <!-- Footer -->
+  <footer class="text-center py-10 text-sm border-t border-white/10 bg-gradient-to-b from-zinc-950 to-black">
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-5">
+      <a href="index.html" class="footer-link font-medium">Home</a>
+      <a href="fullprivacy.html" class="footer-link font-medium">Privacy</a>
+      <a href="fullterms.html" class="footer-link font-medium">Terms</a>
+    </div>
+    <p class="text-gray-600 px-6">Copyright © <span id="current-year">2026</span> ChatSaver.ai &nbsp;All Rights Reserved.</p>
+  </footer>
+
+  <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
