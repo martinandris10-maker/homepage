@@ -2,65 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service - ChatSaver.ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Terms of Service — ChatSaver.ai</title>
+  <meta name="description" content="The terms for using ChatSaver.ai, including the Free and Pro plans.">
+  <meta name="theme-color" content="#0a0a1f">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='.5' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 12h30l8 8v30a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z' fill='white'/%3E%3Crect x='19' y='12' width='20' height='13' rx='1.5' fill='%236366f1'/%3E%3Crect x='32' y='14.5' width='4' height='8' rx='1' fill='white'/%3E%3Crect x='19' y='32' width='26' height='18' rx='2' fill='%23c7d2fe'/%3E%3Ccircle cx='51' cy='13' r='11' fill='%2334d399' stroke='black' stroke-width='2'/%3E%3Ctext x='51' y='17.5' font-family='Arial,sans-serif' font-weight='800' font-size='12' text-anchor='middle' fill='black'%3EAI%3C/text%3E%3C/svg%3E">
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script defer data-auto-replace-svg="nest" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"></script>
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .content {
-      max-width: 640px;
-      margin: 0 auto;
-    }
+    :root { box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+    body { background:#000; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .highlight { background:linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; }
+    .content { max-width:640px; margin:0 auto; }
+    .footer-link { color:#93c5fd; transition:all .3s; }
+    .footer-link:hover { color:#dbeafe; }
+    a:focus-visible { outline:2px solid #34d399; outline-offset:3px; border-radius:0.75rem; }
   </style>
 </head>
-<body class="bg-black text-white min-h-screen pb-20">
+<body class="bg-black text-white min-h-screen">
 
   <!-- Header -->
-  <header class="flex items-center justify-between px-6 py-5 border-b border-gray-800">
-    <a href="https://martinandris10-maker.github.io/homepage/" 
-       class="text-2xl font-light flex items-center hover:text-emerald-400 transition">
-      ← <span class="ml-2 text-base">Back to Home</span>
+  <header class="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-zinc-950">
+    <a href="index.html" class="flex items-center gap-2 text-gray-300 hover:text-emerald-400 transition">
+      <i class="fa-solid fa-arrow-left"></i><span class="text-base">Back to Home</span>
     </a>
-    <div class="font-semibold text-lg">Terms of Service • ChatSaver.ai</div>
-    <div></div>
+    <div class="font-semibold text-sm md:text-base">Terms • <span class="highlight">ChatSaver.ai</span></div>
   </header>
 
-  <div class="content px-6 pt-8">
+  <div class="content px-6 pt-10 pb-20">
     <h1 class="text-4xl font-bold mb-10">Terms of Service</h1>
     <div class="space-y-10 text-gray-300 leading-relaxed">
-     
+
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">1. Acceptance of Terms</h2>
-        <p>By accessing or using ChatSaver.AI, you agree to be bound by these Terms of Service. If you do not agree, you may not use the application.</p>
+        <p>By accessing or using ChatSaver.ai, you agree to be bound by these Terms of Service. If you do not agree, you may not use the application.</p>
       </section>
+
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">2. Description of Service</h2>
-        <p>ChatSaver.AI is a local web application that enables users to store, organize, and manage conversations with artificial intelligence systems. All data is stored locally on the user’s device.</p>
+        <p>ChatSaver.ai is an application that lets you store, organize, and search your conversations with artificial intelligence systems. It is offered in two plans:</p>
+        <div class="grid gap-4 mt-4">
+          <div class="bg-zinc-900 rounded-2xl p-5 border border-white/5">
+            <h3 class="text-emerald-400 font-semibold mb-2">Free</h3>
+            <p>Save up to 25 conversations. Your data is stored locally on your device.</p>
+          </div>
+          <div class="bg-zinc-900 rounded-2xl p-5 border border-white/5">
+            <h3 class="text-emerald-400 font-semibold mb-2">Pro: $1.99 per month</h3>
+            <p>Unlimited conversations and end-to-end encrypted cloud sync. Pro is billed monthly and you can cancel anytime from your account settings.</p>
+          </div>
+        </div>
       </section>
+
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">3. Data Ownership and Privacy</h2>
-        <p>All user data, including conversations, profiles, and notes, is stored exclusively on the user’s device using browser localStorage. The developer has no access to, nor does it collect, transmit, or store any user data on external servers.</p>
+        <p>Your data is yours, including your conversations, profiles, and notes. On the Free plan, it is stored exclusively on your device using browser localStorage, and the developer has no access to it. On Pro, data you sync to the cloud is encrypted on your device before it leaves, so the developer cannot read it. See our <a href="fullprivacy.html" class="text-blue-300 hover:text-white underline">Privacy Policy</a> for details.</p>
       </section>
+
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">4. Disclaimer of Warranties</h2>
-        <p>The application is provided on an “as is” and “as available” basis. The developer makes no representations or warranties of any kind, express or implied, regarding the accuracy, reliability, or suitability of the application for any purpose.</p>
+        <p>The application is provided on an "as is" and "as available" basis. The developer makes no representations or warranties of any kind, express or implied, regarding the accuracy, reliability, or suitability of the application for any purpose. Because Free data lives on your device, it can be lost if you clear your browser data or switch devices, so please export backups of anything important.</p>
       </section>
+
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">5. Limitation of Liability</h2>
-        <p>In no event shall the developer be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the application.</p>
+        <p>In no event shall the developer be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of the application. We are also not responsible for content generated by third-party AI platforms; ChatSaver.ai simply helps you save and organize your own conversations.</p>
       </section>
+
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">6. Modifications to Terms</h2>
         <p>We reserve the right to modify these Terms at any time. Continued use of the application following any changes constitutes acceptance of the modified Terms.</p>
       </section>
-      <p class="text-sm text-gray-500 pt-8 border-t border-gray-800">
-        Last updated: May 12, 2026
-      </p>
+
+      <section class="text-center bg-zinc-900/60 border border-white/10 rounded-2xl px-5 py-8">
+        <h2 class="text-xl font-semibold text-white mb-2">7. Contact</h2>
+        <p class="text-gray-400 mb-4">Questions about these Terms? Email us at</p>
+        <a href="mailto:cyberspacehead@yahoo.com" class="inline-block max-w-full bg-white/5 border border-emerald-400/40 rounded-xl px-4 py-3 text-white font-semibold text-base sm:text-lg break-all hover:text-emerald-300 hover:border-emerald-400 transition">cyberspacehead@yahoo.com</a>
+        <p class="text-gray-500 text-sm mt-4">We'll get back to you within 24 hours.</p>
+      </section>
+
+      <p class="text-sm text-gray-500 pt-6 border-t border-white/10">Last updated: September 29, 2026</p>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="text-center py-10 text-sm border-t border-white/10 bg-gradient-to-b from-zinc-950 to-black">
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-5">
+      <a href="index.html" class="footer-link font-medium">Home</a>
+      <a href="fullabout.html" class="footer-link font-medium">About</a>
+      <a href="fullprivacy.html" class="footer-link font-medium">Privacy</a>
+    </div>
+    <p class="text-gray-600 px-6">Copyright © <span id="current-year">2026</span> ChatSaver.ai &nbsp;All Rights Reserved.</p>
+  </footer>
+
+  <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
