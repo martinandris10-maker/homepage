@@ -477,7 +477,14 @@
       <p class="text-gray-300 leading-relaxed">Need a hand? Start here:</p>
       <ul class="mt-6 space-y-4">
         <li class="flex items-start gap-3 text-gray-300"><i class="fa-solid fa-circle-question text-emerald-400 mt-1"></i> Browse the FAQ above for setup, saving, and sync questions.</li>
-        <li class="flex items-start gap-3 text-gray-300"><i class="fa-solid fa-envelope text-emerald-400 mt-1"></i> Email us at <span class="text-white">support@chatsaver.ai</span> and we'll get back to you within 24 hours.</li>
+        <li class="flex items-start gap-3 text-gray-300">
+          <i class="fa-solid fa-envelope text-emerald-400 mt-1"></i>
+          <div>
+            <p>Email us at</p>
+            <a href="mailto:cyberspacehead@yahoo.com" class="text-white font-semibold break-all hover:text-emerald-300 transition">cyberspacehead@yahoo.com</a>
+            <p class="text-gray-400 text-sm mt-1">We'll get back to you within 24 hours.</p>
+          </div>
+        </li>
         <li class="flex items-start gap-3 text-gray-300"><i class="fa-solid fa-bug text-emerald-400 mt-1"></i> Found a bug? Let us know what happened and which AI app you were using.</li>
       </ul>
       <button onclick="closeModal('help-modal')" class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-2xl">Close</button>
@@ -498,7 +505,7 @@
           .then(function () { done("You're on the list. We'll email you at launch."); e.target.reset(); })
           .catch(function () { done('Something went wrong. Please try again.'); });
       } else {
-        window.location.href = 'mailto:support@chatsaver.ai?subject=' + encodeURIComponent('Notify me: mobile apps') + '&body=' + encodeURIComponent('Please add me to the launch list: ' + email);
+        window.location.href = 'mailto:cyberspacehead@yahoo.com?subject=' + encodeURIComponent('Notify me: mobile apps') + '&body=' + encodeURIComponent('Please add me to the launch list: ' + email);
         done('Almost there: send the email that just opened to join the list.');
       }
       return false;
