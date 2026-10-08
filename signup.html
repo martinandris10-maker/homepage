@@ -5,16 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Sign Up — ChatSaver.AI</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%236366f1'/%3E%3Cpath d='M28 24h36l10 10v42a4 4 0 0 1-4 4H28a4 4 0 0 1-4-4V28a4 4 0 0 1 4-4z' fill='none' stroke='white' stroke-width='6' stroke-linejoin='round'/%3E%3Crect x='36' y='60' width='28' height='20' fill='white'/%3E%3C/svg%3E">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <style>
     :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
     body { background: #000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
     .highlight { background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
     :focus-visible { outline: 2px solid #34d399; outline-offset: 3px; }
-    .store { width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 18px; font-weight: 700; font-size: 17px; color: #fff; text-align: left; transition: transform .2s; }
+    .store { width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 18px; font-weight: 700; font-size: 17px; color: #fff; text-align: left; transition: transform .2s; position: relative; }
     .store:hover { transform: scale(1.02); }
-    .store small { display: block; font-weight: 500; font-size: 12px; opacity: .85; }
+    .store small { display: block; font-weight: 500; font-size: 12px; opacity: .9; }
     .store svg { flex: none; }
+    .store .tick { margin-left: auto; display: none; width: 26px; height: 26px; border-radius: 9999px; background: #fff; align-items: center; justify-content: center; }
+    .store[aria-pressed="true"] .tick { display: flex; }
+    .field { width: 100%; background: #000; border: 1px solid rgba(255,255,255,.2); border-radius: 16px; padding: 16px; font-size: 18px; color: #fff; }
+    .field::placeholder { color: #6b7280; }
+    .field:focus { outline: none; border-color: #34d399; }
+    .field.bad { border-color: #f87171; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen">
@@ -34,7 +41,7 @@
     <!-- Step 1: plans -->
     <section id="step-plans" aria-label="Plans">
       <h1 class="text-4xl font-bold mb-2">Choose your plan</h1>
-      <p class="text-gray-300 mb-8">Start free. Upgrade any time.</p>
+      <p class="text-gray-300 mb-8">Start free. Upgrade any time. Both plans use a ChatSaver account.</p>
 
       <div id="plan-pro" class="relative mb-6 bg-zinc-900 border border-blue-500/40 rounded-3xl p-8 shadow-2xl shadow-blue-500/10">
         <span class="absolute -top-3 left-8 text-xs font-bold bg-emerald-400 text-black rounded-full px-3 py-1">Best value</span>
@@ -66,72 +73,94 @@
             <span class="text-emerald-400 font-medium">FREE</span>
             <h2 class="text-3xl font-bold mt-1">$0<span class="text-base font-normal text-gray-300">/month</span></h2>
           </div>
-          <button onclick="selectPlan('free')" class="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:bg-gray-200 transition">Get Started Free</button>
+          <button onclick="selectPlan('free')" class="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:bg-gray-200 transition">Create Free Account</button>
         </div>
         <ul class="space-y-3 text-sm">
           <li class="flex items-center gap-2"><span class="text-emerald-400" aria-hidden="true">✔</span> Save up to 25 conversations</li>
           <li class="flex items-center gap-2"><span class="text-emerald-400" aria-hidden="true">✔</span> Smart Auto-Tagging</li>
-          <li class="flex items-center gap-2"><span class="text-emerald-400" aria-hidden="true">✔</span> No account needed — everything stays on your device</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400" aria-hidden="true">✔</span> Free account with just an email and password</li>
+          <li class="flex items-center gap-2"><span class="text-emerald-400" aria-hidden="true">✔</span> Conversations stay on your device — no cloud, no tracking</li>
         </ul>
       </div>
 
-      <p class="text-center text-xs text-gray-300 mt-10">Free never touches the cloud. Pro sync is end-to-end encrypted, so even we can't read your conversations.</p>
+      <p class="text-center text-xs text-gray-300 mt-10">Free conversations never touch the cloud. Pro sync is end-to-end encrypted, so even we can't read your conversations.</p>
+      <p class="text-center text-sm text-gray-300 mt-6">Already have an account? <a href="#" onclick="startLogin(); return false;" class="text-blue-300 underline">Log in</a></p>
     </section>
 
-    <!-- Step 2a: Free -> get the app (no account) -->
-    <section id="step-install" class="hidden" aria-label="Get ChatSaver">
-      <h1 class="text-3xl font-bold mb-2">Get ChatSaver Free</h1>
-      <p class="text-gray-300 mb-8">No account or email needed. Pick where you'll use it:</p>
-      <div class="space-y-3">
-        <button class="store" style="background:#1a73e8" onclick="notify('Chrome')">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5" fill="#fff"/><path d="M12 8.5h8.5M8.9 14l-4.2-7.3M15.1 14l-4.3 7.4"/></svg>
-          <span><small>Browser extension</small>Chrome</span>
-        </button>
-        <button class="store" style="background:#e66000" onclick="notify('Firefox')">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M6 9c2-3 7-4 9-1s0 6-3 6-4-2-2-4"/></svg>
-          <span><small>Browser extension</small>Firefox</span>
-        </button>
-        <button class="store" style="background:#0f9d58" onclick="notify('Android')">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg>
-          <span><small>Coming later</small>Android (Google Play)</span>
-        </button>
-        <button class="store" style="background:#6d28d9" onclick="notify('iPhone and iPad')">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 7c1-2 3-2.5 4-2.5-.2 1.6-1 3-2.5 3.6-.6.3-1 .4-1.5.4zM12 8c-1.5-1-4-1-5.5.8-2 2.4-.6 7.7 2 10 .9.8 1.8 1 2.5.6.6-.3 1.2-.3 1.8 0 .7.4 1.6.2 2.5-.6 1-1 1.6-2 1.9-2.8-2.3-1-2.8-4.3-.3-5.6-1.3-1.7-3.3-1.7-4.9-.4z"/></svg>
-          <span><small>Coming later</small>iPhone / iPad (App Store)</span>
-        </button>
-      </div>
-      <p class="text-xs text-gray-300 mt-6 text-center">The extension launches first, with mobile apps to follow. Tap one to be told the moment it's live.</p>
-      <button onclick="backToPlans()" class="mt-6 w-full text-blue-300 text-sm py-2">← Change plan</button>
-    </section>
-
-    <!-- Step 2b: email / waitlist -->
-    <section id="step-email" class="hidden" aria-label="Get notified">
+    <!-- Step 2: create account / log in -->
+    <section id="step-account" class="hidden" aria-label="Account">
       <div class="bg-zinc-900 rounded-3xl p-8 border border-white/10">
         <p class="text-emerald-400 font-medium mb-1" id="chosen-plan"></p>
-        <h1 class="text-2xl font-bold mb-2" id="email-title"></h1>
-        <p class="text-gray-300 text-sm mb-6" id="email-sub"></p>
-        <form id="signup-form" novalidate>
+        <h1 class="text-2xl font-bold mb-2" id="acct-title"></h1>
+        <p class="text-gray-300 text-sm mb-6" id="acct-sub"></p>
+
+        <form id="account-form" novalidate>
           <label for="email" class="block text-sm text-gray-300 mb-2">Email address</label>
-          <input id="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@example.com"
-                 class="w-full bg-black border border-white/20 rounded-2xl px-4 py-4 text-lg text-white placeholder-gray-500 focus:outline-none focus:border-emerald-400" aria-describedby="email-error">
+          <input id="email" class="field" type="email" autocomplete="email" inputmode="email" required placeholder="you@example.com" aria-describedby="email-error">
           <p id="email-error" class="text-red-400 text-sm mt-2 min-h-[1.25rem]" role="alert"></p>
-          <button id="submit-btn" type="submit" class="mt-4 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-[1.02] transition disabled:opacity-60">Notify me</button>
-          <p class="text-xs text-gray-300 mt-4 text-center">By continuing you agree to our <a class="text-blue-300 underline" href="fullterms.html">Terms</a> and <a class="text-blue-300 underline" href="fullprivacy.html">Privacy Policy</a>. We only use your email to tell you about launch.</p>
+
+          <label for="password" class="block text-sm text-gray-300 mb-2 mt-3">Password</label>
+          <div class="relative">
+            <input id="password" class="field pr-20" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters" aria-describedby="password-error">
+            <button type="button" id="toggle-pw" onclick="togglePw()" aria-controls="password" aria-pressed="false" class="absolute right-3 top-1/2 -translate-y-1/2 text-blue-300 text-sm px-2 py-1">Show</button>
+          </div>
+          <p id="password-error" class="text-red-400 text-sm mt-2 min-h-[1.25rem]" role="alert"></p>
+
+          <div id="terms-row" class="mt-3">
+            <label class="flex items-start gap-3 text-sm text-gray-300 cursor-pointer">
+              <input id="terms" type="checkbox" class="mt-1 w-5 h-5 accent-emerald-400 flex-none" aria-describedby="terms-error">
+              <span>I agree to the <a class="text-blue-300 underline" href="fullterms.html">Terms</a> and <a class="text-blue-300 underline" href="fullprivacy.html">Privacy Policy</a>.</span>
+            </label>
+            <p id="terms-error" class="text-red-400 text-sm mt-2 min-h-[1.25rem]" role="alert"></p>
+          </div>
+
+          <p id="form-error" class="text-red-400 text-sm mt-1 min-h-[1.25rem]" role="alert"></p>
+          <button id="submit-btn" type="submit" class="mt-2 w-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold py-4 rounded-2xl text-lg hover:scale-[1.02] transition disabled:opacity-60 disabled:hover:scale-100"></button>
+          <p class="text-xs text-gray-300 mt-4 text-center" id="acct-note"></p>
         </form>
-        <button onclick="backBack()" class="mt-4 w-full text-blue-300 text-sm py-2">← Back</button>
+
+        <p class="text-sm text-gray-300 mt-6 text-center"><span id="switch-text"></span> <a href="#" id="switch-link" class="text-blue-300 underline" onclick="switchMode(); return false;"></a></p>
+        <button onclick="backToPlans()" class="mt-4 w-full text-blue-300 text-sm py-2">← Change plan</button>
       </div>
     </section>
 
-    <!-- Step 3: done -->
-    <section id="step-done" class="hidden text-center" aria-live="polite">
-      <div class="bg-zinc-900 rounded-3xl p-8 border border-emerald-400/40">
+    <!-- Step 3: done + get the app -->
+    <section id="step-done" class="hidden" aria-live="polite" aria-label="Account ready">
+      <div class="bg-zinc-900 rounded-3xl p-8 border border-emerald-400/40 text-center mb-8">
         <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-emerald-400 flex items-center justify-center" aria-hidden="true">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
         </div>
-        <h1 class="text-2xl font-bold mb-3">You're on the list!</h1>
-        <p class="text-gray-300 mb-8" id="done-msg"></p>
-        <a href="https://martinandris10-maker.github.io/homepage/" class="block w-full bg-white text-black font-semibold py-4 rounded-2xl hover:bg-gray-200 transition">Back to home</a>
+        <h1 class="text-2xl font-bold mb-3" id="done-title"></h1>
+        <p class="text-gray-300" id="done-msg"></p>
       </div>
+
+      <h2 class="text-xl font-bold mb-2">Where will you use ChatSaver?</h2>
+      <p class="text-gray-300 text-sm mb-5">The browser extension launches first, with mobile apps to follow. Tap each one you want and we'll email your account the moment it's live.</p>
+      <div class="space-y-3">
+        <button class="store" style="background:#1a73e8" onclick="toggleStore(this, 'Chrome')" aria-pressed="false">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5" fill="#fff"/><path d="M12 8.5h8.5M8.9 14l-4.2-7.3M15.1 14l-4.3 7.4"/></svg>
+          <span><small>Browser extension</small>Chrome</span>
+          <span class="tick" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+        </button>
+        <button class="store" style="background:#e66000" onclick="toggleStore(this, 'Firefox')" aria-pressed="false">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M6 9c2-3 7-4 9-1s0 6-3 6-4-2-2-4"/></svg>
+          <span><small>Browser extension</small>Firefox</span>
+          <span class="tick" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e66000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+        </button>
+        <button class="store" style="background:#0f9d58" onclick="toggleStore(this, 'Android')" aria-pressed="false">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg>
+          <span><small>Coming later</small>Android (Google Play)</span>
+          <span class="tick" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f9d58" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+        </button>
+        <button class="store" style="background:#6d28d9" onclick="toggleStore(this, 'iPhone / iPad')" aria-pressed="false">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 7c1-2 3-2.5 4-2.5-.2 1.6-1 3-2.5 3.6-.6.3-1 .4-1.5.4zM12 8c-1.5-1-4-1-5.5.8-2 2.4-.6 7.7 2 10 .9.8 1.8 1 2.5.6.6-.3 1.2-.3 1.8 0 .7.4 1.6.2 2.5-.6 1-1 1.6-2 1.9-2.8-2.3-1-2.8-4.3-.3-5.6-1.3-1.7-3.3-1.7-4.9-.4z"/></svg>
+          <span><small>Coming later</small>iPhone / iPad (App Store)</span>
+          <span class="tick" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6d28d9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+        </button>
+      </div>
+      <p id="store-status" class="text-xs text-emerald-400 mt-4 text-center min-h-[1rem]"></p>
+
+      <a href="https://martinandris10-maker.github.io/homepage/" class="block w-full bg-white text-black font-semibold py-4 rounded-2xl hover:bg-gray-200 transition text-center mt-6">Back to home</a>
     </section>
   </main>
 
@@ -146,52 +175,150 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    var plan = null, target = null, prev = 'step-plans';
+
+    var plan = null;          // 'free' | 'pro'
+    var mode = 'signup';      // 'signup' | 'login'
+    var interests = {};       // store name -> true
+    var STEPS = ['step-plans', 'step-account', 'step-done'];
+
+    var $ = function (id) { return document.getElementById(id); };
+
     function show(id) {
-      ['step-plans', 'step-install', 'step-email', 'step-done'].forEach(function (s) {
-        document.getElementById(s).classList.toggle('hidden', s !== id);
-      });
+      STEPS.forEach(function (s) { $(s).classList.toggle('hidden', s !== id); });
       window.scrollTo(0, 0);
     }
-    function goBack() { if (!document.getElementById('step-plans').classList.contains('hidden')) history.back(); else backToPlans(); }
+
+    function goBack() {
+      if (!$('step-plans').classList.contains('hidden')) history.back();
+      else backToPlans();
+    }
     function backToPlans() { show('step-plans'); }
-    function backBack() { show(prev); }
-    function selectPlan(p) {
-      plan = p;
-      if (p === 'free') { prev = 'step-install'; show('step-install'); return; }
-      prev = 'step-plans';
-      openEmail('PRO — 2 weeks free, then $1.99/month', 'Start your 2 free weeks', "Pro is launching soon. Leave your email and we'll let you know the moment you can start your trial.");
+
+    function selectPlan(p) { plan = p; mode = 'signup'; openAccount(); }
+    function startLogin() { plan = null; mode = 'login'; openAccount(); }
+    function switchMode() { mode = mode === 'signup' ? 'login' : 'signup'; openAccount(); }
+
+    function clearErrors() {
+      ['email-error', 'password-error', 'terms-error', 'form-error'].forEach(function (id) { $(id).textContent = ''; });
+      $('email').classList.remove('bad');
+      $('password').classList.remove('bad');
     }
-    function notify(store) {
-      target = store;
-      openEmail('FREE — ' + store, 'Get notified for ' + store, "We'll email you once when ChatSaver is live on " + store + ". No account, no spam.");
+
+    function openAccount() {
+      clearErrors();
+      var signup = mode === 'signup';
+      var pw = $('password');
+      pw.autocomplete = signup ? 'new-password' : 'current-password';
+      pw.placeholder = signup ? 'At least 8 characters' : 'Your password';
+      $('terms-row').classList.toggle('hidden', !signup);
+      $('submit-btn').textContent = signup ? (plan === 'pro' ? 'Create Account & Start Free Trial' : 'Create Free Account') : 'Log in';
+
+      if (!signup) {
+        $('chosen-plan').textContent = 'WELCOME BACK';
+        $('acct-title').textContent = 'Log in to ChatSaver';
+        $('acct-sub').textContent = 'Use the email and password you signed up with.';
+        $('acct-note').textContent = '';
+        $('switch-text').textContent = 'New here?';
+        $('switch-link').textContent = 'Create an account';
+      } else if (plan === 'pro') {
+        $('chosen-plan').textContent = 'PRO — 2 weeks free, then $1.99/month';
+        $('acct-title').textContent = 'Create your account';
+        $('acct-sub').textContent = "Pro is launching soon. Create your account now and we'll email you the moment your 2 free weeks can start.";
+        $('acct-note').textContent = 'No charge today. Cancel anytime.';
+        $('switch-text').textContent = 'Already have an account?';
+        $('switch-link').textContent = 'Log in';
+      } else {
+        $('chosen-plan').textContent = 'FREE — $0/month';
+        $('acct-title').textContent = 'Create your free account';
+        $('acct-sub').textContent = 'All we ask for is an email and a password. Your conversations stay on your device.';
+        $('acct-note').textContent = 'Free never touches the cloud.';
+        $('switch-text').textContent = 'Already have an account?';
+        $('switch-link').textContent = 'Log in';
+      }
+      show('step-account');
+      $('email').focus();
     }
-    function openEmail(tag, title, sub) {
-      document.getElementById('chosen-plan').textContent = tag;
-      document.getElementById('email-title').textContent = title;
-      document.getElementById('email-sub').textContent = sub;
-      document.getElementById('email-error').textContent = '';
-      show('step-email');
-      document.getElementById('email').focus();
+
+    function togglePw() {
+      var pw = $('password'), btn = $('toggle-pw');
+      var hidden = pw.type === 'password';
+      pw.type = hidden ? 'text' : 'password';
+      btn.textContent = hidden ? 'Hide' : 'Show';
+      btn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
     }
-    document.getElementById('signup-form').addEventListener('submit', function (e) {
+
+    $('account-form').addEventListener('submit', function (e) {
       e.preventDefault();
-      var email = document.getElementById('email').value.trim();
-      var err = document.getElementById('email-error');
-      var btn = document.getElementById('submit-btn');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
-      err.textContent = '';
-      btn.disabled = true; btn.textContent = 'Sending...';
-      // TODO: send { email: email, plan: plan, store: target } to your backend / waitlist here.
-      // On failure: err.textContent = 'Something went wrong. Please try again.'; btn.disabled = false; btn.textContent = 'Notify me';
+      clearErrors();
+      var email = $('email').value.trim();
+      var password = $('password').value;
+      var signup = mode === 'signup';
+      var ok = true;
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        $('email-error').textContent = 'Enter a valid email address, like you@example.com.';
+        $('email').classList.add('bad');
+        ok = false;
+      }
+      if (!password) {
+        $('password-error').textContent = 'Enter your password.';
+        $('password').classList.add('bad');
+        ok = false;
+      } else if (signup && password.length < 8) {
+        $('password-error').textContent = 'Use at least 8 characters.';
+        $('password').classList.add('bad');
+        ok = false;
+      }
+      if (signup && !$('terms').checked) {
+        $('terms-error').textContent = 'Agree to the Terms and Privacy Policy to continue.';
+        ok = false;
+      }
+      if (!ok) return;
+
+      var btn = $('submit-btn');
+      var label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = signup ? 'Creating account...' : 'Logging in...';
+
+      // TODO: replace this timeout with a real request to your backend, e.g.
+      //   POST /api/signup  { email, password, plan }   (when mode === 'signup')
+      //   POST /api/login   { email, password }         (when mode === 'login')
+      // Send the password over HTTPS only and let the server hash it. Never store it in the page or localStorage.
+      // On failure, show a message and re-enable the button:
+      //   $('form-error').textContent = 'Something went wrong. Please try again.';
+      //   btn.disabled = false; btn.textContent = label;
       setTimeout(function () {
-        document.getElementById('done-msg').textContent = plan === 'pro'
-          ? "We'll email " + email + " as soon as Pro is ready, so you can start your 2 free weeks."
-          : "We'll email " + email + " when ChatSaver is live on " + target + ".";
-        btn.disabled = false; btn.textContent = 'Notify me';
-        show('step-done');
-      }, 600);
+        btn.disabled = false;
+        btn.textContent = label;
+        $('password').value = '';
+        finish(email, signup);
+      }, 700);
     });
+
+    function finish(email, signup) {
+      var title = $('done-title'), msg = $('done-msg');
+      if (!signup) {
+        title.textContent = 'You are logged in';
+        msg.textContent = 'Welcome back, ' + email + '.';
+      } else if (plan === 'pro') {
+        title.textContent = 'Your account is ready';
+        msg.textContent = "We'll email " + email + " as soon as Pro is live so you can start your 2 free weeks.";
+      } else {
+        title.textContent = 'Your free account is ready';
+        msg.textContent = 'Signed up as ' + email + '. You can save up to 25 conversations, all stored on your device.';
+      }
+      $('store-status').textContent = '';
+      show('step-done');
+    }
+
+    function toggleStore(btn, name) {
+      var on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) interests[name] = true; else delete interests[name];
+      // TODO: save the list of Object.keys(interests) to the logged-in account on your backend.
+      var list = Object.keys(interests);
+      $('store-status').textContent = list.length ? "We'll email you when ChatSaver is live on: " + list.join(', ') + '.' : '';
+    }
   </script>
 </body>
 </html>
