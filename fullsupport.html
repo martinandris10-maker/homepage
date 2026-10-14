@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Tech Support / Help Center — ChatSaver.ai</title>
-  <meta name="description" content="Get help with ChatSaver.ai. Browse quick answers or send us the details and we'll get back to you within 24 hours.">
+  <meta name="description" content="Get help with ChatSaver.ai. Browse quick answers, ask the community, share your AI experiences, or send us the details and we'll get back to you within 24 hours.">
   <meta name="theme-color" content="#0a0a1f">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2360a5fa'/%3E%3Cstop offset='.5' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%239333ea'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 12h30l8 8v30a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z' fill='white'/%3E%3Crect x='19' y='12' width='20' height='13' rx='1.5' fill='%236366f1'/%3E%3Crect x='32' y='14.5' width='4' height='8' rx='1' fill='white'/%3E%3Crect x='19' y='32' width='26' height='18' rx='2' fill='%23c7d2fe'/%3E%3Ccircle cx='51' cy='13' r='11' fill='%2334d399' stroke='black' stroke-width='2'/%3E%3Ctext x='51' y='17.5' font-family='Arial,sans-serif' font-weight='800' font-size='12' text-anchor='middle' fill='black'%3EAI%3C/text%3E%3C/svg%3E">
@@ -33,6 +33,24 @@
     .req { color:#34d399; }
     .send-btn { background:linear-gradient(90deg, #34d399, #2dd4bf, #34d399); background-size:200% 100%; box-shadow:0 10px 30px rgb(52 211 153 / 0.4); transition:all .3s; }
     .send-btn:hover { transform:translateY(-2px); box-shadow:0 12px 36px rgb(52 211 153 / 0.6); }
+
+    /* Community forums */
+    .code-field { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.85rem; line-height:1.5; white-space:pre; overflow:auto; }
+    .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    .post { background:#18181b; border:1px solid rgb(255 255 255 / 0.07); border-radius:1rem; padding:1.1rem 1.1rem 1rem; }
+    .post h4 { font-size:1.05rem; font-weight:700; color:#f4f4f5; word-break:break-word; }
+    .post-meta { font-size:0.75rem; color:#71717a; margin-top:0.15rem; }
+    .post-body { color:#d4d4d8; font-size:0.95rem; line-height:1.55; margin-top:0.7rem; word-break:break-word; }
+    .code-wrap { position:relative; margin-top:0.75rem; }
+    pre.code-block { background:#0c0c12; border:1px solid rgb(255 255 255 / 0.12); border-radius:0.75rem; padding:0.9rem 1rem; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.8rem; line-height:1.5; color:#a7f3d0; max-width:100%; }
+    .copy-btn { position:absolute; top:0.4rem; right:0.4rem; font-size:0.68rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:9999px; background:rgb(255 255 255 / 0.08); color:#d4d4d8; border:1px solid rgb(255 255 255 / 0.12); transition:all .2s; }
+    .copy-btn:hover { background:rgb(52 211 153 / 0.2); color:#6ee7b7; }
+    .reply { margin-top:0.7rem; padding:0.75rem 0.9rem; border-left:3px solid rgb(52 211 153 / 0.5); background:rgb(255 255 255 / 0.03); border-radius:0 0.75rem 0.75rem 0; }
+    .reply .post-body { margin-top:0.35rem; font-size:0.9rem; }
+    .linkbtn { color:#6ee7b7; font-weight:600; font-size:0.85rem; transition:color .2s; }
+    .linkbtn:hover { color:#a7f3d0; }
+    .team-badge { display:inline-block; font-size:0.58rem; font-weight:800; letter-spacing:0.1em; padding:0.08rem 0.4rem; border-radius:9999px; background:rgb(52 211 153 / 0.15); color:#6ee7b7; border:1px solid rgb(52 211 153 / 0.4); vertical-align:middle; margin-left:0.2rem; }
+    .forum-tag { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.7rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; padding:0.25rem 0.7rem; border-radius:9999px; border:1.5px solid currentColor; }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen">
@@ -58,6 +76,8 @@
     <div class="grid grid-cols-2 gap-3 mb-12">
       <a href="#answers" class="bg-zinc-900 border border-white/5 hover:border-emerald-400/40 rounded-2xl p-5 text-center transition"><i class="fa-solid fa-circle-question text-emerald-400 text-2xl mb-2 block"></i><span class="font-semibold">Quick Answers</span></a>
       <a href="#contact-form" class="bg-zinc-900 border border-white/5 hover:border-emerald-400/40 rounded-2xl p-5 text-center transition"><i class="fa-solid fa-envelope text-emerald-400 text-2xl mb-2 block"></i><span class="font-semibold">Contact Support</span></a>
+      <a href="#ask-forum" class="bg-zinc-900 border border-white/5 hover:border-blue-400/40 rounded-2xl p-5 text-center transition"><i class="fa-solid fa-comments text-blue-400 text-2xl mb-2 block"></i><span class="font-semibold">Ask a Question</span></a>
+      <a href="#experiences-forum" class="bg-zinc-900 border border-white/5 hover:border-purple-400/40 rounded-2xl p-5 text-center transition"><i class="fa-solid fa-lightbulb text-purple-400 text-2xl mb-2 block"></i><span class="font-semibold">AI Experiences</span></a>
     </div>
 
     <!-- Quick answers -->
@@ -85,7 +105,7 @@
           <p class="text-gray-400 mt-3">Yes. You can set a PIN on any sensitive chat, separate from your overall app password.</p>
         </details>
       </div>
-      <p class="text-gray-500 text-sm mt-4">Didn't find your answer? Send us the details below.</p>
+      <p class="text-gray-500 text-sm mt-4">Didn't find your answer? Send us the details below, or <a href="#ask-forum" class="text-emerald-400 hover:text-emerald-300 underline">ask the community</a>.</p>
     </section>
 
     <!-- Contact form -->
@@ -201,6 +221,37 @@
       <a href="mailto:cyberspacehead@yahoo.com" class="inline-block max-w-full bg-white/5 border border-emerald-400/40 rounded-xl px-4 py-3 text-white font-semibold text-base sm:text-lg break-all hover:text-emerald-300 hover:border-emerald-400 transition">cyberspacehead@yahoo.com</a>
       <p class="text-gray-500 text-sm mt-4">We'll get back to you within 24 hours.</p>
     </section>
+
+    <!-- Community -->
+    <section id="community" class="mt-16 scroll-mt-6">
+      <div class="text-center mb-10">
+        <span class="inline-block text-emerald-400 font-semibold tracking-widest text-sm mb-3">COMMUNITY</span>
+        <h2 class="text-3xl font-bold leading-tight mb-3">Learn from other ChatSaver users</h2>
+        <p class="text-gray-400">Ask questions, share what you've learned, and swap code snippets and prompts.</p>
+      </div>
+
+      <!-- Ask a Question forum -->
+      <div id="ask-forum" class="scroll-mt-6 mb-14">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="forum-tag text-blue-400"><i class="fa-solid fa-comments"></i>Forum</span>
+        </div>
+        <h3 class="text-2xl font-semibold mb-1">Ask a Question</h3>
+        <p class="text-gray-400 mb-5">Stuck on something? Post it here. Other users (and our team) can reply. Paste code or error text if it helps.</p>
+        <div id="forum-ask" data-board="ask"></div>
+      </div>
+
+      <!-- AI Experiences forum -->
+      <div id="experiences-forum" class="scroll-mt-6">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="forum-tag text-purple-400"><i class="fa-solid fa-lightbulb"></i>Forum</span>
+        </div>
+        <h3 class="text-2xl font-semibold mb-1">AI Experiences</h3>
+        <p class="text-gray-400 mb-5">Share what worked with ChatGPT, Claude, Grok, Gemini, Kimi, Perplexity and more: tips, prompts, workflows, scripts, and lessons learned.</p>
+        <div id="forum-experiences" data-board="experiences"></div>
+      </div>
+
+      <p class="text-gray-500 text-xs text-center mt-10"><i class="fa-solid fa-shield-halved mr-1 text-emerald-400"></i>Posts are public. Never share passwords, API keys, or private chat contents.</p>
+    </section>
   </div>
 
   <!-- Footer -->
@@ -273,6 +324,299 @@
       msg.classList.remove('hidden');
       return false;
     }
+
+    /* ------------------------------------------------------------------
+       COMMUNITY FORUMS (Ask a Question + AI Experiences)
+
+       FORUM_ENDPOINT: URL of a small backend that stores posts so EVERY
+       visitor sees them (Firebase, Supabase, Google Apps Script, your own
+       server, etc.). Expected contract:
+         GET  FORUM_ENDPOINT?board=ask        -> { "posts": [ ...post objects... ] }
+         POST FORUM_ENDPOINT  (JSON body)     -> { action:"post",  board, post }
+                                              or { action:"reply", board, postId, reply }
+       A post is: { id, name, title, message, code, time, replies:[{id,name,message,code,time}] }
+
+       Until FORUM_ENDPOINT is set, posts are saved in this browser only
+       (localStorage), so other visitors will NOT see them.
+       ------------------------------------------------------------------ */
+    var FORUM_ENDPOINT = '';
+    var PAGE_SIZE = 5;
+
+    var BOARDS = {
+      ask: {
+        titleLabel: 'Question title', titlePh: 'e.g. Save button does nothing on Claude',
+        msgLabel: 'Your question', msgPh: 'Describe what you are trying to do and what is happening.',
+        codeLabel: 'Code or error text (optional)', codePh: 'Paste code, a script, or an error message here',
+        submit: 'Post Question', empty: 'No questions yet. Be the first to ask!', accent: 'blue'
+      },
+      experiences: {
+        titleLabel: 'Title', titlePh: 'e.g. How I use Claude + Grok to plan my week',
+        msgLabel: 'Your experience', msgPh: 'What did you try, what worked, and what did you learn?',
+        codeLabel: 'Code, prompt or script (optional)', codePh: 'Paste a prompt, snippet, script, or workflow you want to share',
+        submit: 'Share Experience', empty: 'No experiences shared yet. Share the first one!', accent: 'purple'
+      }
+    };
+
+    var forumState = {}; // board -> { posts: [], shown: PAGE_SIZE }
+
+    /* ---- STARTER POSTS (shown to everyone, written by the team) ---- */
+    var TEAM = 'ChatSaver Team';
+    function T(d) { return new Date(d).getTime(); }
+    var SEED_POSTS = {
+      ask: [
+        { id: 'seed-ask-4', seed: true, team: true, name: TEAM, time: T('2026-10-09T16:00:00Z'),
+          title: 'Can I lock a sensitive chat?',
+          message: 'Some of my saved conversations are private. Is there a way to protect individual chats?',
+          code: '',
+          replies: [ { id: 'seed-ask-4-r1', team: true, name: TEAM, time: T('2026-10-09T17:10:00Z'),
+            message: 'Yes. You can set a PIN on any individual chat, separate from your overall app password.', code: '' } ] },
+        { id: 'seed-ask-3', seed: true, team: true, name: TEAM, time: T('2026-10-08T14:30:00Z'),
+          title: 'Does ChatSaver work offline?',
+          message: 'I travel a lot and my connection is unreliable. Can I still open and search my saved chats?',
+          code: '',
+          replies: [ { id: 'seed-ask-3-r1', team: true, name: TEAM, time: T('2026-10-08T15:05:00Z'),
+            message: 'Yes. Chats are stored locally by default, so you can view and search your saved conversations even without an internet connection.', code: '' } ] },
+        { id: 'seed-ask-2', seed: true, team: true, name: TEAM, time: T('2026-10-06T18:45:00Z'),
+          title: 'What happens when I reach the 25 chat limit on Free?',
+          message: 'I am getting close to 25 saved conversations. What are my options?',
+          code: '',
+          replies: [ { id: 'seed-ask-2-r1', team: true, name: TEAM, time: T('2026-10-06T19:30:00Z'),
+            message: 'Free saves up to 25 conversations. You can export your chats as a backup, delete ones you no longer need, or go Pro for unlimited conversations.', code: '' } ] },
+        { id: 'seed-ask-1', seed: true, team: true, name: TEAM, time: T('2026-10-03T15:00:00Z'),
+          title: 'How do I save a chat from ChatGPT, Claude or another AI app?',
+          message: 'I use a few different AI apps. What is the easiest way to get a conversation into my ChatSaver library?',
+          code: '',
+          replies: [ { id: 'seed-ask-1-r1', team: true, name: TEAM, time: T('2026-10-03T15:40:00Z'),
+            message: 'Open the conversation in any AI app, tap the save button, and the entire conversation is saved to your library in one tap. It works the same way for ChatGPT, Claude, Grok, Gemini, Kimi and Perplexity.', code: '' } ] },
+        { id: 'seed-ask-5', seed: true, team: true, name: TEAM, time: T('2026-10-01T12:00:00Z'),
+          title: 'How to write a bug report we can fix fast',
+          message: 'If something is not working, copy the template below, fill it in, and post it here (or send it through the Contact Support form). The more detail you give us, the faster we can help. Please do not include passwords or private chat contents.',
+          code: "What I was doing:\nWhat I expected to happen:\nWhat happened instead:\nAI app (ChatGPT / Claude / Grok / Gemini / Kimi / Perplexity):\nDevice and browser:\nPlan (Free / Pro):\nSteps to reproduce:\n1.\n2.\n3.",
+          replies: [] }
+      ],
+      experiences: [
+        { id: 'seed-exp-3', seed: true, team: true, name: TEAM, time: T('2026-10-11T13:20:00Z'),
+          title: 'Ask two AIs the same question, then save both answers',
+          message: 'Different AIs have different blind spots. I send the same question to two of them, save both conversations, and compare. This prompt makes the answers easier to compare because each AI has to state its assumptions and weak spots.',
+          code: "Answer this as concisely as you can, then list:\n1) Your key assumptions\n2) What you are least sure about\n3) What a skeptic would say\n\nQuestion: <paste the same question in each AI>",
+          replies: [] },
+        { id: 'seed-exp-2', seed: true, team: true, name: TEAM, time: T('2026-10-08T10:15:00Z'),
+          title: 'How I name and tag chats so I can find them in seconds',
+          message: 'A consistent naming pattern makes search almost instant, even months later. I put the project first, then the topic, the AI, and the month. I also reuse a small set of tags instead of inventing new ones every time.',
+          code: "[Project] - [Topic] - [AI] - YYYY-MM\nExample: Launch - Pricing tiers - ChatGPT - 2026-10\n\nTags I reuse: #research #writing #code #planning #ideas",
+          replies: [] },
+        { id: 'seed-exp-1', seed: true, team: true, name: TEAM, time: T('2026-10-04T09:00:00Z'),
+          title: 'Start every new AI chat with a short "about me" prompt',
+          message: 'A new AI knows nothing about you, so the first answers are generic. I keep a short profile in my notes and paste it as my first message. Fill this template in once and reuse it with every AI you try.',
+          code: "About me (paste this first):\n- Role / what I do:\n- What I am working on right now:\n- How I like answers (short, step-by-step, with examples):\n- Things to avoid:\n- Tools / stack I use:",
+          replies: [ { id: 'seed-exp-1-r1', team: true, name: TEAM, time: T('2026-10-04T11:30:00Z'),
+            message: 'Saving your best "about me" prompts in ChatSaver means you can reuse them across every AI. That same idea is what the Master Memory Profile in Pro is built around.', code: '' } ] }
+      ]
+    };
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function who(x) { return esc(x.name || 'Anonymous') + (x.team ? ' <span class="team-badge">TEAM</span>' : ''); }
+    function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
+    function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+    function timeAgo(t) {
+      var s = Math.max(1, Math.floor((Date.now() - t) / 1000));
+      if (s < 60) return 'just now';
+      var m = Math.floor(s / 60); if (m < 60) return m + ' min ago';
+      var h = Math.floor(m / 60); if (h < 24) return h + ' hr ago';
+      var d = Math.floor(h / 24); if (d < 30) return d + (d === 1 ? ' day ago' : ' days ago');
+      return new Date(t).toLocaleDateString();
+    }
+
+    /* ---- storage layer (remote endpoint, or localStorage fallback) ---- */
+    function lsKey(board) { return 'chatsaver_forum_' + board; }
+    function lsRead(board) {
+      try { return JSON.parse(localStorage.getItem(lsKey(board)) || '[]'); } catch (e) { return []; }
+    }
+    function lsWrite(board, posts) {
+      try { localStorage.setItem(lsKey(board), JSON.stringify(posts)); return true; } catch (e) { return false; }
+    }
+    function fetchPosts(board) {
+      if (FORUM_ENDPOINT) {
+        return fetch(FORUM_ENDPOINT + (FORUM_ENDPOINT.indexOf('?') > -1 ? '&' : '?') + 'board=' + encodeURIComponent(board))
+          .then(function (r) { return r.json(); })
+          .then(function (j) { return Array.isArray(j) ? j : (j.posts || []); });
+      }
+      return Promise.resolve(lsRead(board));
+    }
+    function submitPost(board, post) {
+      if (FORUM_ENDPOINT) {
+        return fetch(FORUM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'post', board: board, post: post }) });
+      }
+      var posts = lsRead(board); posts.unshift(post);
+      return lsWrite(board, posts) ? Promise.resolve() : Promise.reject(new Error('storage'));
+    }
+    function displayedPost(board, id) {
+      var a = forumState[board].posts;
+      for (var i = 0; i < a.length; i++) { if (a[i].id === id) return a[i]; }
+      return null;
+    }
+    function stripSeed(p) { var c = JSON.parse(JSON.stringify(p)); delete c.seed; return c; }
+    function submitReply(board, postId, reply) {
+      var shown = displayedPost(board, postId);
+      var isSeed = !!(shown && shown.seed);
+      if (FORUM_ENDPOINT) {
+        var sendReply = function () {
+          return fetch(FORUM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'reply', board: board, postId: postId, reply: reply }) });
+        };
+        if (isSeed) {
+          // a starter post doesn't exist on the server yet: create it first, then reply
+          return fetch(FORUM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'post', board: board, post: stripSeed(shown) }) }).then(sendReply);
+        }
+        return sendReply();
+      }
+      var posts = lsRead(board), found = false;
+      for (var i = 0; i < posts.length; i++) {
+        if (posts[i].id === postId) { posts[i].replies = posts[i].replies || []; posts[i].replies.push(reply); found = true; break; }
+      }
+      if (!found && isSeed) {
+        var copy = stripSeed(shown); copy.replies = copy.replies || []; copy.replies.push(reply); posts.unshift(copy);
+      }
+      return lsWrite(board, posts) ? Promise.resolve() : Promise.reject(new Error('storage'));
+    }
+
+    /* ---- rendering ---- */
+    function codeBlock(code) {
+      if (!code) return '';
+      return '<div class="code-wrap"><button type="button" class="copy-btn" data-action="copy">Copy</button><pre class="code-block"><code>' + esc(code) + '</code></pre></div>';
+    }
+    function replyHTML(r) {
+      return '<div class="reply"><div class="post-meta"><span class="text-gray-300 font-semibold">' + who(r) + '</span> · ' + timeAgo(r.time) + '</div>' +
+        '<div class="post-body">' + nl2br(r.message) + '</div>' + codeBlock(r.code) + '</div>';
+    }
+    function replyFormHTML(id) {
+      return '<form class="reply-form hidden mt-3 space-y-3" data-post="' + esc(id) + '" novalidate>' +
+        '<input class="field" type="text" name="name" maxlength="40" placeholder="Your name (optional)" aria-label="Your name">' +
+        '<textarea class="field" name="message" rows="3" maxlength="3000" placeholder="Write a reply…" aria-label="Reply"></textarea>' +
+        '<textarea class="field code-field" name="code" rows="3" maxlength="6000" placeholder="Code (optional)" aria-label="Code (optional)" spellcheck="false"></textarea>' +
+        '<div class="hp"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>' +
+        '<p class="form-err text-red-400 text-sm hidden" role="alert"></p>' +
+        '<div class="flex gap-4 items-center"><button type="submit" class="px-4 py-2 rounded-xl bg-emerald-400 text-black font-bold text-sm hover:bg-emerald-300 transition">Post reply</button>' +
+        '<button type="button" class="linkbtn" data-action="cancel-reply">Cancel</button></div></form>';
+    }
+    function postHTML(p) {
+      var replies = (p.replies || []).map(replyHTML).join('');
+      var n = (p.replies || []).length;
+      return '<article class="post" data-id="' + esc(p.id) + '">' +
+        '<h4>' + esc(p.title) + '</h4>' +
+        '<div class="post-meta"><span class="text-gray-300 font-semibold">' + who(p) + '</span> · ' + timeAgo(p.time) + (n ? ' · ' + n + (n === 1 ? ' reply' : ' replies') : '') + '</div>' +
+        '<div class="post-body">' + nl2br(p.message) + '</div>' + codeBlock(p.code) + replies +
+        '<div class="mt-3"><button type="button" class="linkbtn" data-action="reply"><i class="fa-solid fa-reply mr-1"></i>Reply</button></div>' +
+        replyFormHTML(p.id) + '</article>';
+    }
+    function renderList(board) {
+      var st = forumState[board], cfg = BOARDS[board];
+      var box = document.getElementById('list-' + board);
+      if (!st.posts.length) { box.innerHTML = '<p class="text-gray-500 text-center py-6">' + cfg.empty + '</p>'; return; }
+      var html = st.posts.slice(0, st.shown).map(postHTML).join('');
+      if (st.posts.length > st.shown) {
+        html += '<div class="text-center"><button type="button" class="text-emerald-400 font-semibold hover:text-emerald-300 transition" data-action="more" data-board="' + board + '">Show more +</button></div>';
+      }
+      box.innerHTML = '<div class="space-y-4">' + html + '</div>';
+    }
+    function refresh(board) {
+      return fetchPosts(board).then(function (posts) {
+        var have = {}; posts.forEach(function (p) { have[p.id] = true; });
+        posts = posts.concat((SEED_POSTS[board] || []).filter(function (sp) { return !have[sp.id]; }));
+        posts.sort(function (a, b) { return (b.time || 0) - (a.time || 0); });
+        forumState[board].posts = posts;
+        renderList(board);
+      }).catch(function () {
+        document.getElementById('list-' + board).innerHTML = '<p class="text-red-400 text-center py-6">Could not load posts right now. Please try again later.</p>';
+      });
+    }
+    function buildBoard(board) {
+      var cfg = BOARDS[board], root = document.getElementById('forum-' + board);
+      forumState[board] = { posts: [], shown: PAGE_SIZE };
+      root.innerHTML =
+        '<form class="bg-zinc-900/60 border border-white/10 rounded-3xl p-6 space-y-5 mb-6 post-form" data-board="' + board + '" novalidate>' +
+          '<div><label class="lbl" for="' + board + '-name">Your name <span class="text-gray-500 font-normal">(optional)</span></label>' +
+            '<input class="field" type="text" id="' + board + '-name" name="name" maxlength="40" autocomplete="nickname" placeholder="Jane D."></div>' +
+          '<div><label class="lbl" for="' + board + '-title">' + cfg.titleLabel + ' <span class="req">*</span></label>' +
+            '<input class="field" type="text" id="' + board + '-title" name="title" maxlength="120" placeholder="' + esc(cfg.titlePh) + '"></div>' +
+          '<div><label class="lbl" for="' + board + '-msg">' + cfg.msgLabel + ' <span class="req">*</span></label>' +
+            '<textarea class="field" id="' + board + '-msg" name="message" rows="5" maxlength="3000" placeholder="' + esc(cfg.msgPh) + '"></textarea></div>' +
+          '<div><label class="lbl" for="' + board + '-code">' + cfg.codeLabel + '</label>' +
+            '<textarea class="field code-field" id="' + board + '-code" name="code" rows="5" maxlength="6000" spellcheck="false" placeholder="' + esc(cfg.codePh) + '"></textarea></div>' +
+          '<div class="hp"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>' +
+          '<p class="form-err text-red-400 text-sm text-center hidden" role="alert"></p>' +
+          '<button type="submit" class="send-btn w-full text-black font-extrabold py-4 rounded-2xl text-lg"><i class="fa-solid fa-paper-plane mr-2"></i>' + cfg.submit + '</button>' +
+        '</form>' +
+        (FORUM_ENDPOINT ? '' : '<p class="text-gray-600 text-xs text-center mb-4">Posts on this page are currently saved on your device only.</p>') +
+        '<div id="list-' + board + '"><p class="text-gray-500 text-center py-6">Loading…</p></div>';
+      refresh(board);
+    }
+    function showErr(form, text) {
+      var el = form.querySelector('.form-err');
+      el.textContent = text; el.classList.remove('hidden');
+    }
+    function clearErr(form) { form.querySelector('.form-err').classList.add('hidden'); }
+    function field(form, name) { return (form.elements[name].value || '').trim(); }
+
+    /* ---- events (delegated) ---- */
+    document.addEventListener('submit', function (e) {
+      var form = e.target;
+      if (form.classList.contains('post-form')) {
+        e.preventDefault();
+        var board = form.getAttribute('data-board');
+        clearErr(form);
+        if (field(form, 'website')) return; // spam honeypot
+        var title = field(form, 'title'), message = field(form, 'message');
+        if (!title) return showErr(form, 'Please add a title.');
+        if (!message) return showErr(form, 'Please write your message.');
+        var post = { id: uid(), name: field(form, 'name'), title: title, message: message, code: field(form, 'code'), time: Date.now(), replies: [] };
+        submitPost(board, post).then(function () {
+          form.reset(); forumState[board].shown = PAGE_SIZE; return refresh(board);
+        }).catch(function () { showErr(form, 'Could not post right now. Please try again.'); });
+      } else if (form.classList.contains('reply-form')) {
+        e.preventDefault();
+        var postEl = form.closest('.post'), root = form.closest('[data-board]');
+        var rBoard = root.getAttribute('data-board');
+        clearErr(form);
+        if (field(form, 'website')) return;
+        var rMsg = field(form, 'message');
+        if (!rMsg) return showErr(form, 'Please write a reply.');
+        var reply = { id: uid(), name: field(form, 'name'), message: rMsg, code: field(form, 'code'), time: Date.now() };
+        submitReply(rBoard, postEl.getAttribute('data-id'), reply).then(function () { return refresh(rBoard); })
+          .catch(function () { showErr(form, 'Could not post your reply. Please try again.'); });
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      var action = btn.getAttribute('data-action');
+      if (action === 'reply') {
+        var f = btn.closest('.post').querySelector('.reply-form');
+        f.classList.toggle('hidden');
+        if (!f.classList.contains('hidden')) f.querySelector('textarea').focus();
+      } else if (action === 'cancel-reply') {
+        btn.closest('.reply-form').classList.add('hidden');
+      } else if (action === 'more') {
+        var b = btn.getAttribute('data-board');
+        forumState[b].shown += PAGE_SIZE; renderList(b);
+      } else if (action === 'copy') {
+        var code = btn.parentNode.querySelector('code').textContent;
+        var done = function () { btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); };
+        if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(code).then(done); }
+        else {
+          var ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); done(); } catch (x) {}
+          document.body.removeChild(ta);
+        }
+      }
+    });
+
+    buildBoard('ask');
+    buildBoard('experiences');
   </script>
 </body>
 </html>
